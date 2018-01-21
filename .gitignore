@@ -1,0 +1,10 @@
+*.log
+*~
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.cut
+serverless-ea.pdf
+auto/
