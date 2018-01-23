@@ -133,6 +133,18 @@ all islands at the same time, there have been many efforts from early
 on to adapt them to dynamic, heterogeneous software architectures
 \cite{Jini:FEA2000}. 
 
+\section{Event based architectures}
+
+The creation of virtualization and isolation mechanisms at many
+different levels and the consequent granularization of architectures
+has led to systems that are asynchronous and loosely coupled in what
+is generally called a microservice architecture. These microservice
+architectures share the commot trait of consisting in several services
+with a single concern, that is, providing a single processing value,
+in many case stateless, and coupled using lightweight protocolos such
+as REST and messaging buses that carry information from every service
+to the next. 
+
 \section{Conclusions}
 
 %\end{document}  % This is where a 'short' article might terminate
