@@ -212,6 +212,29 @@ create island-like structures, creating again a system that, even
 leveraging the capabilities of the architecture in a much better way,
 does not advance the  structure of an EA in any new way. 
 
+There is the same tension between functional equivalence and new
+design in new, cloud based approaches to evolutionary
+algorithms. Salza and collaborators \cite{salza2017ccube,de2017parallel} explicitly
+and looking to optimize interoperability claim that there is very
+little need to change ``traditional'' code to port it to the cloud,
+implicitly claiming this {\em functional equivalence} with the
+sequential evolutionary algorithms. Other contemporary systems such as
+\cite{10.1007/978-3-319-32149-3_46} use Spark to evaluate, in
+parallel, fitness for different machine learning models;
+\cite{de2015scalable} use Hadoop for evolutionary k-means clustering,
+obtaining good speedups; in this last case, it uses a problem-specific
+way of distributing tasks, without resourcing to a change of the
+evolutionary algorithm itself.
+
+In the serverless, event based types of architectures we are going to
+be targeting in this paper, there has been so far no paper
+published. Similar setups have been employed by Salza et
+al. \cite{salza2017ccube}; however, the serverless system adds a layer
+of abstraction to event-based queuing systems such as the one employed
+by Salza by reducing it to functions, messages and rules or
+triggers. We will explain in detail these architectures in the next
+section. 
+
 \section{Event based architectures}
 
 The creation of virtualization and isolation mechanisms at many
