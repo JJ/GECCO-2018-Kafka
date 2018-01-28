@@ -60,6 +60,25 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 
 \begin{abstract}
+  Cloud native applications add a layer of abstraction to the
+  underlying distributed computing system, creating an abstract,
+  self-scaling and self-managed architecture of different
+  microservices linked by a messaging bus. Creating new algorithms
+  that tap this architecture patterns at the same time they employ the
+  distributed resources efficiently is a challenge we will be taking
+  up in this paper. We introduce KafkEO, a cloud native framework that
+  allows different implementations of evolutionary algorithms and
+  other population-based metaheuristics and that uses
+  micro-populations and its service as the main building block. In
+  this paper we introduce the open source implementation that uses
+  OpenWhisk as a serverless framework and Kafka as a messaging hub as
+  a proof of concept that maps the traditional evolutionary algorithm
+  to this new cloud native format. As far as we know, this is the
+  first architecture of this kind; the experiments show that it uses
+  resources efficiently, and that the cost to the cloud user is
+  minimal, resulting in savings with respect to other cloud
+  implementations. We also perform an initial analysis of
+  implementation parameters that show its influence in performance. 
 
 \end{abstract}
 
@@ -95,6 +114,12 @@ been a boon for scientific computin, but at the same time the shift
 from a monolithic sequential or asynchronously parallel architecture
 to a these new architectures mean that the scientific workflows and
 the algorithms underlying it have to necessarily change. 
+
+  Cloud native applications add a layer of abstraction to the
+  underlying distributed computing system, integrating seamlessly
+  different elements in a single data flow that is managed by the
+  cloud provider, allowing the user to focus on code and connections
+  among different services. 
 
 % \begin{table}
 %   \caption{Frequency of Special Characters}
