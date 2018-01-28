@@ -7,4 +7,5 @@
 *.out
 *.cut
 serverless-ea.pdf
+serverless-ea.tex
 auto/
