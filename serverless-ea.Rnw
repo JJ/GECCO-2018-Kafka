@@ -169,11 +169,48 @@ the algorithms underlying it have to necessarily change.
 
 \section{State of the art}
 
-Although most evolutionary algorithms work in a synchronous way, with
-generations proceeding one after the other and migration happening in
-all islands at the same time, there have been many efforts from early
-on to adapt them to dynamic, heterogeneous software architectures
-\cite{Jini:FEA2000}. 
+In general, scientific computing has followed the trends of the
+computing industry, with new implementations published almost as soon
+as new technologies became commercially available, or even
+before. There were very early implementations of evolutionary
+algorithms on transputers \cite{voigt1990modelling}, the world wide
+web \cite{chong:1999:jDGPi} or the first generation of cloud
+services
+\cite{DBLP:journals/corr/abs-1105-6205,de2017parallel,salza2017ccube}. Evolutionary
+algorithms are population-based algorithms, so it is relatively easy
+to create a parallel implementation by just splitting populations, as
+long as there is a way for those populations to interchange some
+individuals and leverage the use of many different machines. In
+general, besides, one of the most time-consuming steps in an
+evolutionary algorithm is evaluation, so as long as you can compute
+fitness in parallel, you can obtain a certain amount of speed up. 
+
+However, in general every new computing platform has its own view of
+how computing should be made, and in many cases that has made
+evolutionary algorithms move in new directions in order to make them
+work better in that platform while keeping the spirit of
+bioinspiration. For instance, most evolutionary algorithms work in a
+synchronous way; although there were very early efforts to create
+asynchronous EAs \cite{coleman89}, in general 
+generations proceed one after the other and migration happening in
+all islands at the same time. However, this mode of working does not
+fit well with architectures that are heterogeneous and dynamic, which
+is why there have been many efforts from early
+on to adapt EAs to this kind of substrate
+\cite{Jini:FEA2000,zorman2002creation,baugh2003asynchronous}. This
+last one creates an asynchronous, parallel system that is {\em functionally
+  equivalent} to a sequential one by {\em unrolling} operations so
+that they happen in parallel as long as there is no dependence between
+them; multiple generations occur at the same time with every operation
+using data that is available at every particular
+moment. \cite{Jini:FEA2000} and \cite{zorman2002creation} explicitly
+follow two completely different, and opposed, approaches to the
+adaptation of an EA to a heterogeneous substrate. While the former
+tends towards finer grain by distributing every particular operation
+to different Jini services, the latter uses a pool-based approach to
+create island-like structures, creating again a system that, even
+leveraging the capabilities of the architecture in a much better way,
+does not advance the  structure of an EA in any new way. 
 
 \section{Event based architectures}
 
