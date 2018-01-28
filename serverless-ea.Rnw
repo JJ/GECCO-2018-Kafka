@@ -112,7 +112,8 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 \ccsdesc[500]{Computer systems organization~Cloud computing}
 \ccsdesc[300]{Computing methodologies~Distributed algorithms}
 
-\keywords{ACM proceedings, \LaTeX, text tagging}
+\keywords{Cloud Computing, microservices, distributed computing,
+  event-based systems, Kappa architecture}
 
 
 \maketitle
