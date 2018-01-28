@@ -120,7 +120,7 @@ Cloud computing is increasingly becoming the dominant way of running
 applications nowadays. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results. This has
-been a boon for scientific computin, but at the same time the shift
+been a boon for scientific computing, but at the same time the shift
 from a monolithic sequential or asynchronously parallel architecture
 to a these new architectures mean that the scientific workflows and
 the algorithms underlying it have to necessarily change. 
@@ -181,9 +181,9 @@ The creation of virtualization and isolation mechanisms at many
 different levels and the consequent granularization of architectures
 has led to systems that are asynchronous and loosely coupled in what
 is generally called a microservice architecture. These microservice
-architectures share the commot trait of consisting in several services
+architectures share the common trait of consisting in several services
 with a single concern, that is, providing a single processing value,
-in many case stateless, and coupled using lightweight protocolos such
+in many case stateless, and coupled using lightweight protocols such
 as REST and messaging buses that carry information from every service
 to the next. 
 
