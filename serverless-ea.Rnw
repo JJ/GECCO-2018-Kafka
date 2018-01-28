@@ -32,8 +32,7 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 \acmPrice{15.00}
 
 \begin{document}
-\title{Kafka-EO: an asynchronous, serverless framework for
-  evolutionary algorithms in the cloud}
+\title{A modern, event-based architecture for distributed evolutionary algorithms}
 
 \author{Anonymous Author 1}
 \orcid{1234-5678-9012}
@@ -88,6 +87,14 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 \section{Introduction}
 
+Cloud computing is increasingly becoming the dominant way of running
+applications nowadays. Besides the convenience of the pay-as-you-go
+model, it also offers a way of describing the infrastructure as part
+of the code, so that it is much easier to reproduce results. This has
+been a boon for scientific computin, but at the same time the shift
+from a monolithic sequential or asynchronously parallel architecture
+to a these new architectures mean that the scientific workflows and
+the algorithms underlying it have to necessarily change. 
 
 % \begin{table}
 %   \caption{Frequency of Special Characters}
