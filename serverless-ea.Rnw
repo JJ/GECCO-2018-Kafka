@@ -5,17 +5,7 @@
 
 \usepackage{booktabs} % For formal tables
 
-
-% Copyright
-%\setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
 \setcopyright{rightsretained}
-%\setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-%\setcopyright{cagovmixed}
-
 
 % DOI
 \acmDOI{10.1145/nnnnnnn.nnnnnnn}
