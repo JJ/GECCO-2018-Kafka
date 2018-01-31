@@ -101,7 +101,6 @@ parameters that show their influence in performance.
 \keywords{Cloud Computing, microservices, distributed computing,
   event-based systems, Kappa architecture}
 
-
 \maketitle
 
 \section{Introduction}
@@ -119,7 +118,57 @@ the algorithms underlying it have to necessarily change.
   underlying distributed computing system, integrating seamlessly
   different elements in a single data flow that is managed by the
   cloud provider, allowing the user to focus on code and connections
-  among different services. 
+  among different services. The fact that they are {\em native} points
+  to their new architecture, which departs from a monolithic or even
+  distributed paradigm to become a loosely connected collection of
+  services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to input and
+  {\em living} only while they are doing some kind of processing. This
+  reactivity, besides allowing massive and independent deployment and
+  scaling, also is more economical than monolithic infraestructure as
+  a service (IaaS) or platform as a service (Paas), or even Container
+  as a Service (CaaS), which need to be active all the time and are
+  paid by the size and time. It is also taken to an atomic extreme
+  with the so-called serverless architectures \cite{Varghese2018849},
+  which reduce deployment of vendor code to single, stateless
+  functions, that get activated via {\em rules}, {\em triggers} or
+  explicitly, generally generated from a message queue or bus that
+  is the backbone of the application. The first commercial
+  implementation of this kind of architeture was released by Amazon
+  with its Lambda product, to be followed closely by releases by Azure
+  (Microsoft) and Google and an open source implementation, OpenWhisk,
+  released by IBM \cite{Baldini2016287}. 
+  
+There is usually no direct translation of most algorithms to this
+architecture. This is specially true in evolutionary algorithms, who
+rely on state, in the shape of a population, to perform their search
+in the space of solutions. It is relatively straighforward to convert
+an evolutionary algorithm to a stateless version by simply making a
+{\sf generation} function $g$ that takes a population as a function
+and returns another population. A simple serverless GA would then be
+triggered by the creation of a initial population, and would perform
+one or several generations in a function, returning the result to the
+message hub and thus triggering a new action. This would be
+functionally equivalent to a traditional, serial evolutionary
+algorithm, and might be cheaper than a XaaS implementation since it
+would eschew some overhead. However, it would incur also in some
+overhead by reading and writing to the message queue and, since it
+would be working on a single population, no scaling could be done,
+since there would be a single pipeline. 
+
+In this paper we want to introduce KafkEO, a serverless framework for
+evolutionary algorithms and other population-based systems. The main
+design objective is to leverage the scaling capabilities of a
+serverless framework, as well as create a system that can be deployed
+on different architectures by using free software. Our intention has
+also been to create an algorithm that is functionally equivalent to a
+parallel, island-based, EA, which can use paralellism and at the same
+time reproduce mechanisms that are akin to migration. 
+
+We will examine the results of this framework on some BBOB benchmarks,
+taking into account speed as well as number of evaluations. The
+implementation is also free software and can be downloaded from
+GitHub. 
+
 
 % \begin{table}
 %   \caption{Frequency of Special Characters}
@@ -136,16 +185,6 @@ the algorithms underlying it have to necessarily change.
 % \end{tabular}
 % \end{table}
 
-
-% It is strongly recommended to use the package booktabs~\cite{Fear05}
-% and follow its main principles of typography with respect to tables:
-% \begin{enumerate}
-% \item Never, ever use vertical rules.
-% \item Never use double rules.
-% \end{enumerate}
-% It is also a good idea not to overuse horizontal rules.
-
-
 % \begin{figure}
 % \includegraphics{fly}
 % \caption{A sample black and white graphic.}
@@ -156,6 +195,16 @@ the algorithms underlying it have to necessarily change.
 % \caption{A sample black and white graphic
 % that has been resized with the \texttt{includegraphics} command.}
 % \end{figure}
+% This left here for copy/paste to create figures - JJ
+
+The rest of the paper is organized as follows. Next we present the
+state of the art in cloud implementation of evolutionary algorithms,
+to be followed in section \ref{sec:methods} by an introduction to the
+serverless architecture we will be using as well as our mapping of the
+evolutionary algorithm to it. Section \ref{sec:res} will present the
+result of performing experiments with this proof of concept; finally
+in section \ref{sec:con} will discuss the results, present conclusions
+and future lines of work. 
 
 \section{State of the art}
 
@@ -225,7 +274,9 @@ by Salza by reducing it to functions, messages and rules or
 triggers. We will explain in detail these architectures in the next
 section. 
 
-\section{Event based architectures}
+\section{Event based architectures and implementing evolutionary
+  algorithms over them}
+\label{sec:methods}
 
 The creation of virtualization and isolation mechanisms at many
 different levels and the consequent granularization of architectures
@@ -237,9 +288,12 @@ in many case stateless, and coupled using lightweight protocols such
 as REST and messaging buses that carry information from every service
 to the next. 
 
-\section{Conclusions}
+\section{Experiments and results}
+\label{sec:res}
 
-%\end{document}  % This is where a 'short' article might terminate
+\section{Conclusions}
+\label{sec:con}
+
 
 
 
