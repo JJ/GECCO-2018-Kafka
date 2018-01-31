@@ -109,7 +109,7 @@ Cloud computing is increasingly becoming the dominant way of running
 % enterprise applications? or server side, computing intensive
 % because in general the dominant way is mobile -M
 % but mobile need back-ends. I will try to qualify a bit more this
-% claim. 
+% claim.
 the server side of applications nowadays. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
@@ -126,14 +126,16 @@ resources, and shifting from a monolithic n-tier and mostly sequential
 to an asynchronously parallel architecture will imply also important
 reformulation in the algorithms to take full advantage of this new mode.
 %%%% Maybe it's better now - JJ
+%%%% Much better - M
   Cloud native applications add a layer of abstraction to the
-  underlying distributed computing system, seamlessly integrating 
+  underlying distributed computing system, seamlessly integrating
   different elements in a single data flow that is managed by the
   cloud provider, allowing the user to focus on code and connections
   among different services. Describing them as {\em native} points
   % I do not understand: The fact that services? are {\em native} points
   % to their new architecture,
   % Check it out now - JJ
+  % OK! - M
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
   services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
@@ -155,8 +157,10 @@ reformulation in the algorithms to take full advantage of this new mode.
   which reduce the need to deploy code by the user or vendor to single, stateless
   % Vendor code? Whats that?
   % user or vendor - check it out now - JJ
+  % Ok, I its clear now - M
   functions, that get activated via {\em rules}, {\em triggers} or
-  explicitly, generally generated from a message queue or bus that
+  explicitly, reacting to events comusmed from
+  a message queue or bus that
   % generally reacting to events from a message queue or bus that
   % what is generated? rules are triggered and triggers fire in
   % response to events
@@ -197,11 +201,12 @@ time reproduce mechanisms that are akin to migration.
 %%% Not only better performance in time, but also, more diverstity and less
 %%% parametrization
 % Please add something and I'll review it. - JJ
+% OK, TO DO - M
 We will examine the results of this framework on some BBOB benchmarks,
 taking into account speed as well as number of evaluations, comparing
 against another Cloud ready parallel pool based implementation (with
 containers). The speed measurements are intended mainly as baseline,
-since no effort has been made to optimize it. 
+since no effort has been made to optimize it.
 The
 implementation is also free software and can be downloaded from
 GitHub.
