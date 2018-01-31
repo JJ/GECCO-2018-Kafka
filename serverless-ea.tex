@@ -333,6 +333,33 @@ functions, hosted in OpenWhisk, execute {\em actions} triggered by the
 arrival of new messages; these actions also produce new messages that
 go back to the MessageHub to continue with the message loop.
 
+The evolutionary algorithm mapped over this architecture, which we
+call KafkEO, consists essentially on a single function, a single topic
+in the MessageHub and a single kind of message, which includes a whole
+population along with metadata. The function performs a series of
+generations on the population, using a canonical algorithm with
+mutation and crossover. If it finds the solution, in our case, the
+minimum fitness, it sets a flag indicating it has found it so that it
+propagates to different instances of the population; in any case, it
+sends the whole evolved population as a message to the MessageHub, to
+be propagated to the other instantiations on the function.
+
+This would be functionally equivalent to a sequential algorithm except
+for the fact that, between two calls to the function, several
+population-messages have been received in the message queue. In fact,
+every call the evolution function receives several populations, which
+have to be merged to generate a single one. This {\em merging} step
+before starting evolution takes the place of the {\em migration} phase
+and allows this type of framework to work in parallel, since several
+instances of the function might be working at the exact same time; the
+results of these instances are then received back by every one of the
+instances.
+
+Since we are running a single function, the amount of code of KafkEO
+is quite small compared with other implementations. We use DEAP for
+all the evolutionary functions, which are written in Python and
+released in GitHub under the GPL license. 
+
 
 
 \section{Experiments and results}
