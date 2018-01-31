@@ -243,6 +243,7 @@ computing industry, with new implementations published almost as soon
 as new technologies became commercially available, or even
 before. There were very early implementations of evolutionary
 algorithms on transputers \cite{voigt1990modelling}, the world wide
+% transputers, had to google that
 web \cite{chong:1999:jDGPi} or the first generation of cloud
 services
 \cite{DBLP:journals/corr/abs-1105-6205,de2017parallel,salza2017ccube}. Evolutionary
@@ -345,15 +346,17 @@ The main reason why we have made this choice is availability of
 resources, but also
 the fact that all parts of the implementation are open source and can
 be deployed in desktop machines or other cloud providers by simply
-changing names and IPs. It is also a good practice to implement free
+changing names and IPs.It is also a good practice to implement free
+% Maybe remove:  by simply changing names and IPs
+% Is not a problem to do, but is litlle more than that.
 software using free software, making it widely available to the
 scientific community to create their own versions or to adapt it to
 their own problems.
 
 The layers and message flow in the application are shown in Figure
 \ref{fig:kafkeo}, which also includes the evolutionary components. We
-will focus for the time being in the general picture. Serverless
-architecture use as a backbone a messaging service, which in this case
+will focus for the time being in the general picture. A serverless
+architecture using as a backbone a messaging service, which in this case
 takes the shape of Kafka/MessageHub. These messages are produced and
 consumed by a service, which can also store it in an external database
 for its later use; in general, messaging systems are configured to
