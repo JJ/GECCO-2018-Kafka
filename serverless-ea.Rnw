@@ -277,7 +277,12 @@ section.
 \section{Event based architectures and implementing evolutionary
   algorithms over them}
 \label{sec:methods}
-
+%
+\begin{figure*}[h!tbp]
+\includegraphics[width=0.95\textwidth]{img/kafka.png}
+\caption{A flow diagram of KafkEO, showing message routes.}
+\end{figure*}
+%
 The creation of virtualization and isolation mechanisms at many
 different levels and the consequent granularization of architectures
 has led to systems that are asynchronous and loosely coupled in what
