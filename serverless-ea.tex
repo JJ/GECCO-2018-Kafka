@@ -32,8 +32,8 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 \affiliation{%
   \institution{Anonymous institute 1}
   \streetaddress{P.O. Box 1212}
-  \city{Dublin} 
-  \state{Ohio} 
+  \city{Dublin}
+  \state{Ohio}
   \postcode{43017-6221}
 }
 \email{aa1@ai1.com}
@@ -42,8 +42,8 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 \affiliation{%
   \institution{Anonymous institute 2}
   \streetaddress{P.O. Box 1212}
-  \city{Dublin} 
-  \state{Ohio} 
+  \city{Dublin}
+  \state{Ohio}
   \postcode{43017-6221}
 }
 \email{2aa@ai2.com}
@@ -63,7 +63,7 @@ paper, that is why in this paper we propose KafkEO, a cloud native
 framework that allows different implementations of evolutionary
 algorithms and other population-based metaheuristics by using
 micro-populations and stateless services as the main building
-blocks. we introduce an open source implementation that uses OpenWhisk
+blocks. We introduce an open source implementation that uses OpenWhisk
 as a serverless framework and Kafka as messaging hub. In this proof of
 concept, we map the traditional evolutionary algorithm to this new
 cloud-native format.  As far as we know, this is the first
@@ -106,38 +106,50 @@ parameters that show their influence in performance.
 \section{Introduction}
 
 Cloud computing is increasingly becoming the dominant way of running
+% enterprise applications? or server side, computing intensive
+% because in general the dominant way is mobile -M
 applications nowadays. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
-of the code, so that it is much easier to reproduce results. This has
-been a boon for scientific computing, but at the same time the shift
+of the code, so that it is much easier to reproduce results.
+%%%% Hard to read:
+This has been a boom in scientific computing, but at the same time the shift
 from a monolithic sequential or asynchronously parallel architecture
 to a these new architectures mean that the scientific workflows and
-the algorithms underlying it have to necessarily change. 
-
+the algorithms underlying it have to necessarily change.
+%%%%
   Cloud native applications add a layer of abstraction to the
   underlying distributed computing system, integrating seamlessly
   different elements in a single data flow that is managed by the
   cloud provider, allowing the user to focus on code and connections
   among different services. The fact that they are {\em native} points
+  % I do not understand: The fact that services? are {\em native} points
+  % to their new architecture,
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
-  services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to input and
+  services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
   {\em living} only while they are doing some kind of processing. This
   reactivity, besides allowing massive and independent deployment and
   scaling, also is more economical than monolithic infraestructure as
-  a service (IaaS) or platform as a service (Paas), or even Container
+  a service (IaaS) or platform as a service (PaaS), or even Container
   as a Service (CaaS), which need to be active all the time and are
-  paid by the size and time. It is also taken to an atomic extreme
+  paid by the size and time.
+  %% They need to maintain their state?
+  %% Some, for instance containers or even virtual machines can be
+  %% created and destroyed on demand BUT AT A HIGHER COST
+  %% special scripts, time etc.
+  %% We should focus more on STATEFULL vs STATELESS than ACTIVE vs INACTIVE
+  It is also taken to an atomic extreme
   with the so-called serverless architectures \cite{Varghese2018849},
   which reduce deployment of vendor code to single, stateless
+  % Vendor code? Whats that?
   functions, that get activated via {\em rules}, {\em triggers} or
   explicitly, generally generated from a message queue or bus that
   is the backbone of the application. The first commercial
   implementation of this kind of architeture was released by Amazon
   with its Lambda product, to be followed closely by releases by Azure
   (Microsoft) and Google and an open source implementation, OpenWhisk,
-  released by IBM \cite{Baldini2016287}. 
-  
+  released by IBM \cite{Baldini2016287}.
+
 There is usually no direct translation of most algorithms to this
 architecture. This is specially true in evolutionary algorithms, who
 rely on state, in the shape of a population, to perform their search
@@ -153,7 +165,7 @@ algorithm, and might be cheaper than a XaaS implementation since it
 would eschew some overhead. However, it would incur also in some
 overhead by reading and writing to the message queue and, since it
 would be working on a single population, no scaling could be done,
-since there would be a single pipeline. 
+since there would be a single pipeline.
 
 In this paper we want to introduce KafkEO, a serverless framework for
 evolutionary algorithms and other population-based systems. The main
@@ -162,12 +174,12 @@ serverless framework, as well as create a system that can be deployed
 on different architectures by using free software. Our intention has
 also been to create an algorithm that is functionally equivalent to a
 parallel, island-based, EA, which can use paralellism and at the same
-time reproduce mechanisms that are akin to migration. 
+time reproduce mechanisms that are akin to migration.
 
 We will examine the results of this framework on some BBOB benchmarks,
 taking into account speed as well as number of evaluations. The
 implementation is also free software and can be downloaded from
-GitHub. 
+GitHub.
 
 
 % \begin{table}
@@ -204,7 +216,7 @@ serverless architecture we will be using as well as our mapping of the
 evolutionary algorithm to it. Section \ref{sec:res} will present the
 result of performing experiments with this proof of concept; finally
 in section \ref{sec:con} will discuss the results, present conclusions
-and future lines of work. 
+and future lines of work.
 
 \section{State of the art}
 
@@ -222,7 +234,7 @@ long as there is a way for those populations to interchange some
 individuals and leverage the use of many different machines. In
 general, besides, one of the most time-consuming steps in an
 evolutionary algorithm is evaluation, so as long as you can compute
-fitness in parallel, you can obtain a certain amount of speed up. 
+fitness in parallel, you can obtain a certain amount of speed up.
 
 However, in general every new computing platform has its own view of
 how computing should be made, and in many cases that has made
@@ -230,7 +242,7 @@ evolutionary algorithms move in new directions in order to make them
 work better in that platform while keeping the spirit of
 bioinspiration. For instance, most evolutionary algorithms work in a
 synchronous way; although there were very early efforts to create
-asynchronous EAs \cite{coleman89}, in general 
+asynchronous EAs \cite{coleman89}, in general
 generations proceed one after the other and migration happening in
 all islands at the same time. However, this mode of working does not
 fit well with architectures that are heterogeneous and dynamic, which
@@ -260,11 +272,11 @@ implemented evolutionary algorithms over them
 \cite{garcia2013service,munawar2010design,6955331}. However, scaling
 problems and the extension of cloud deployment and services had made
 this kind of architectures decline in popularity
-\cite{Varghese2018849}. 
+\cite{Varghese2018849}.
 
 In general, SoAs tried to achieve functional equivalence with parallel
 or sequential versions of EAs. There is the same tension between
-functional equivalence and new 
+functional equivalence and new
 design in new, cloud based approaches to evolutionary
 algorithms. Salza and collaborators \cite{salza2017ccube,de2017parallel} explicitly
 and looking to optimize interoperability claim that there is very
@@ -276,7 +288,7 @@ parallel, fitness for different machine learning models;
 \cite{de2015scalable} use Hadoop for evolutionary k-means clustering,
 obtaining good speedups; in this last case, it uses a problem-specific
 way of distributing tasks, without resourcing to a change of the
-evolutionary algorithm itself. 
+evolutionary algorithm itself.
 
 In the serverless, event based types of architectures we are going to
 be targeting in this paper, there has been so far no paper
@@ -285,7 +297,7 @@ al. \cite{salza2017ccube}; however, the serverless system adds a layer
 of abstraction to event-based queuing systems such as the one employed
 by Salza by reducing it to functions, messages and rules or
 triggers. We will explain in detail these architectures in the next
-section. 
+section.
 
 \section{Event based architectures and implementing evolutionary
   algorithms over them}
@@ -318,7 +330,7 @@ be deployed in desktop machines or other cloud providers by simply
 changing names and IPs. It is also a good practice to implement free
 software using free software, making it widely available to the
 scientific community to create their own versions or to adapt it to
-their own problems. 
+their own problems.
 
 The layers and message flow in the application are shown in Figure
 \ref{fig:kafkeo}, which also includes the evolutionary components. We
@@ -358,7 +370,7 @@ instances.
 Since we are running a single function, the amount of code of KafkEO
 is quite small compared with other implementations. We use DEAP for
 all the evolutionary functions, which are written in Python and
-released in GitHub under the GPL license. 
+released in GitHub under the GPL license.
 
 
 
@@ -384,6 +396,6 @@ released in GitHub under the GPL license.
 
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{serverless} 
+\bibliography{serverless}
 
 \end{document}
