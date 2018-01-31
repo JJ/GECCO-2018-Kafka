@@ -158,7 +158,9 @@ reformulation in the algorithms to take full advantage of this new mode.
   functions, that get activated via {\em rules}, {\em triggers} or
   explicitly, generally generated from a message queue or bus that
   % generally reacting to events from a message queue or bus that
-  % what is generated? rules are triggered and triggers fire in response to events
+  % what is generated? rules are triggered and triggers fire in
+  % response to events
+  % Please change it to whatever you think it's the best - JJ
   is the backbone of the application. The first commercial
   implementation of this kind of architeture was released by Amazon
   with its Lambda product, to be followed closely by releases by Azure
@@ -187,17 +189,19 @@ evolutionary algorithms and other population-based systems. The main
 design objective is to leverage the scaling capabilities of a
 serverless framework, as well as create a system that can be deployed
 on different architectures by using free software. Our intention has
-also been to create an algorithm that is functionally equivalent to a
-%%% an asynchronous
+also been to create an algorithm that is functionally equivalent to an asynchronous
 parallel, island-based, EA, which can use paralellism and at the same
 time reproduce mechanisms that are akin to migration.
 
 %%% Maybe a little more about the why Island?
 %%% Not only better performance in time, but also, more diverstity and less
 %%% parametrization
+% Please add something and I'll review it. - JJ
 We will examine the results of this framework on some BBOB benchmarks,
-taking into account speed as well as number of evaluations.
-%% speed not so much, and comparing against another Cloud ready parallel pool based implementation (with containers)
+taking into account speed as well as number of evaluations, comparing
+against another Cloud ready parallel pool based implementation (with
+containers). The speed measurements are intended mainly as baseline,
+since no effort has been made to optimize it. 
 The
 implementation is also free software and can be downloaded from
 GitHub.
@@ -217,18 +221,6 @@ GitHub.
 %   \bottomrule
 % \end{tabular}
 % \end{table}
-
-% \begin{figure}
-% \includegraphics{fly}
-% \caption{A sample black and white graphic.}
-% \end{figure}
-
-% \begin{figure}
-% \includegraphics[height=1in, width=1in]{fly}
-% \caption{A sample black and white graphic
-% that has been resized with the \texttt{includegraphics} command.}
-% \end{figure}
-% This left here for copy/paste to create figures - JJ
 
 The rest of the paper is organized as follows. Next we present the
 state of the art in cloud implementation of evolutionary algorithms,
