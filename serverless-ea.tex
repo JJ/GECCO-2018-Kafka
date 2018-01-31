@@ -108,22 +108,32 @@ parameters that show their influence in performance.
 Cloud computing is increasingly becoming the dominant way of running
 % enterprise applications? or server side, computing intensive
 % because in general the dominant way is mobile -M
-applications nowadays. Besides the convenience of the pay-as-you-go
+% but mobile need back-ends. I will try to qualify a bit more this
+% claim. 
+the server side of applications nowadays. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 %%%% Hard to read:
-This has been a boom in scientific computing, but at the same time the shift
-from a monolithic sequential or asynchronously parallel architecture
-to a these new architectures mean that the scientific workflows and
-the algorithms underlying it have to necessarily change.
-%%%%
+The availability of resources only limited by your budget, and in many
+cases free, as well as the inherent reproducibility of cloud
+deployments has been a boon for scientific computing. However,
+programming the cloud means that monolithic applications, that is,
+applications built on a single stack of services that communicate by
+layers, are no longer the best or most efficient architectural design
+for scientific workflows and implementation of algorithms. Cloud
+architectures favour asyhchronous communication over heterogeneous
+resources, and shifting from a monolithic n-tier and mostly sequential
+to an asynchronously parallel architecture will imply also important
+reformulation in the algorithms to take full advantage of this new mode.
+%%%% Maybe it's better now - JJ
   Cloud native applications add a layer of abstraction to the
-  underlying distributed computing system, integrating seamlessly
+  underlying distributed computing system, seamlessly integrating 
   different elements in a single data flow that is managed by the
   cloud provider, allowing the user to focus on code and connections
-  among different services. The fact that they are {\em native} points
+  among different services. Describing them as {\em native} points
   % I do not understand: The fact that services? are {\em native} points
   % to their new architecture,
+  % Check it out now - JJ
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
   services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
@@ -132,16 +142,19 @@ the algorithms underlying it have to necessarily change.
   scaling, also is more economical than monolithic infraestructure as
   a service (IaaS) or platform as a service (PaaS), or even Container
   as a Service (CaaS), which need to be active all the time and are
-  paid by the size and time.
+  paid by the size and time in order to maintain their state.
   %% They need to maintain their state?
   %% Some, for instance containers or even virtual machines can be
   %% created and destroyed on demand BUT AT A HIGHER COST
   %% special scripts, time etc.
-  %% We should focus more on STATEFULL vs STATELESS than ACTIVE vs INACTIVE
+  %% We should focus more on STATEFULL vs STATELESS than ACTIVE vs
+  %% INACTIVE
+  % Please feel free to add - JJ
   It is also taken to an atomic extreme
   with the so-called serverless architectures \cite{Varghese2018849},
-  which reduce deployment of vendor code to single, stateless
+  which reduce the need to deploy code by the user or vendor to single, stateless
   % Vendor code? Whats that?
+  % user or vendor - check it out now - JJ
   functions, that get activated via {\em rules}, {\em triggers} or
   explicitly, generally generated from a message queue or bus that
   is the backbone of the application. The first commercial
