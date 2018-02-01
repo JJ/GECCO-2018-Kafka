@@ -493,10 +493,30 @@ is quite small compared with other implementations. We use DEAP for
 all the evolutionary functions, which are written in Python and
 released in GitHub under the GPL license.
 
-
-
 \section{Experiments and results}
 \label{sec:res}
+In this section we compare the performance of KafkEO against 
+the EvoSpace \cite{GValdez2015}  pool-based architecture, using the Noiseless
+BBOB testbed. It is expected that both algorithms achieve similar results as 
+they are functionally equivalent. The EvoSpace algorithm presented, follows the 
+basic  EvoSpace model in which EvoWorkers  asynchronously interact with the
+population pool by taking samples of the population to perform a standard
+evolutionary search on the samples, to then return newly evolved solutions back
+to the pool.  
+
+EvoWorkers were implemented in Python taking using the same code as KafkEO using DEAP \cite{fortin2012deap} for the GA service function. The code is in the
+following GitHub repository: \url{https://hidden.com}. Before each
+experiment, a script initializes the population on the server, creating the
+number of individuals specified in the {\em Population Size} parameter, this
+size  depends on the dimension of the problem according to de BOBB testbed. 
+When starting each EvoWorker, the following parameters are used: first, the
+{\em Sample Size} indicates the number of individuals the worker would take
+from the server on each interaction, then the {\em Iterations per Sample} 
+parameter specifies the number of generations or iterations the local algorithm
+will run before sending back to the server the resulting population. Finally,
+the number of times an  EvoWorker will take, evolve and return a sample, is 
+indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters are shown in Table \ref{tab:params:evoworkers} 
+
 
 \begin{table}
   \small
@@ -513,6 +533,7 @@ released in GitHub under the GPL license.
     GA Workers & 2 & 2 & 4 & 5 & 8 & 16  \\ \hline
   \end{tabular}
 \end{table}
+
 
 \begin{table}
   \small
