@@ -447,7 +447,16 @@ performance, we might expect this type of architecture, being
 functionally equivalent, to be at least just as efficient and the
 latter, and better adapted to a cloud-native application.
 
-
+In this phase where we are creating a proof of concent, there is a
+single instance of this part. For the time being, it has not been
+detected as a bottleneck, although eventually, when the number of
+functions are working in parallel, it might become one. There are
+several options for overcoming this problem, the easiest of which is
+to add more instances of this {\sf Population-controller}. These
+instances will act in parallel, processing the message queue at
+different offsets and contributing to population diversity. This will
+eventually have its influence in the results of the algorithm, so it
+is better left as future work. 
 
 Since we are running just a few functions, the amount of code of KafkEO
 is quite small compared with other implementations. We use DEAP for
