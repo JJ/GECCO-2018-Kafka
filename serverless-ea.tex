@@ -4,6 +4,9 @@
 %%% End:
 
 \usepackage{booktabs} % For formal tables
+\usepackage{graphicx}
+\usepackage{rotating}
+\definecolor{Gray}{gray}{0.6}
 
 \setcopyright{rightsretained}
 
@@ -23,6 +26,33 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 \acmArticle{4}
 \acmPrice{15.00}
+
+\newcommand{\bbobdatapath}{ExperimentData/KafkaEvoSpace/}
+\graphicspath{{\ExperimentData}}
+% rungeneric.py writes data into a subfolder of ppdata desired
+\input{\bbobdatapath cocopp_commands.tex} % provide default of algname and algfolder
+% \renewcommand{\algname}{MYNAME}  % name of algorithm as it should appear in the text
+% \renewcommand{\algfolder}{ABC/} % subfolder of \bbobdatapath for processed algorithm
+\renewcommand{\algfolder}{EvoSPace/}
+\renewcommand{\algname}{EvoSpace}
+
+\graphicspath{{\bbobdatapath\algfolder}}
+
+
+
+\newcommand{\DIM}{\ensuremath{\mathrm{DIM}}}
+\newcommand{\aRT}{\ensuremath{\mathrm{aRT}}}
+\newcommand{\FEvals}{\ensuremath{\mathrm{FEvals}}}
+\newcommand{\nruns}{\ensuremath{\mathrm{Nruns}}}
+\newcommand{\Dfb}{\ensuremath{\Delta f_{\mathrm{best}}}}
+\newcommand{\Df}{\ensuremath{\Delta f}}
+\newcommand{\nbFEs}{\ensuremath{\mathrm{\#FEs}}}
+\newcommand{\fopt}{\ensuremath{f_\mathrm{opt}}}
+\newcommand{\ftarget}{\ensuremath{f_\mathrm{t}}}
+\newcommand{\CrE}{\ensuremath{\mathrm{CrE}}}
+\newcommand{\change}[1]{{\color{red} #1}}
+
+
 
 \begin{document}
 \title{A modern, event-based architecture for distributed evolutionary algorithms}
@@ -467,6 +497,25 @@ released in GitHub under the GPL license.
 
 \section{Experiments and results}
 \label{sec:res}
+\begin{figure*}
+\begin{tabular}{l@{\hspace*{-0.025\textwidth}}l@{\hspace*{-0.025\textwidth}}l@{\hspace*{-0.025\textwidth}}l}
+\includegraphics[width=0.266\textwidth]{ppfigdim_f001}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f006}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f002}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f007}\\[-2.1ex]
+\includegraphics[width=0.266\textwidth]{ppfigdim_f003}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f008}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f004}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f009}\\[-2.1ex]
+\includegraphics[width=0.266\textwidth]{ppfigdim_f005}&
+\includegraphics[width=0.266\textwidth]{ppfigdim_f010}\\[-2.1ex]
+\end{tabular}
+\vspace{-3ex}
+ \caption{\label{fig:aRTgraphs}
+ \bbobppfigdimlegend{$f_1$ and $f_{24}$}
+ }
+\end{figure*}
+
 
 \section{Conclusions}
 \label{sec:con}
