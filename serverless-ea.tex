@@ -498,9 +498,26 @@ released in GitHub under the GPL license.
 \section{Experiments and results}
 \label{sec:res}
 
+The experiments using the above described framework were performed
+during the month of January using a paid IBM BlueMix subscription. The
+totality of experiments costed about 40\$, with cost split between
+MessageHub and IBM Functions, the BlueMix implementation of the
+OpenWhisk serverless framework.
+
+We used an already published algorithm, EvoWorker, as a base for
+comparison, and used the well known BBOB benchmarks. EvoWorker is
+based in the EvoSpace \cite{DBLP:conf/evoW/ValdezTVGO13} pool-based
+evolutionary algorithm, the closest functionally to the stream or
+event-based EA we are introducing in this paper; the parameters used
+in this algorithm are shown in Table \ref{tab:params:evoworkers}.
+% Maybe you could explain this algorithm a little bit more.
+% Are we using all these combinations? - JJ
 \begin{table}
   \small
-  \caption{EvoWorker Setup}
+  \caption{EvoWorker Setup, including the number of dimensions of the
+    benchmark functions, sample size, which is the size of the block
+    of individuals taken and dropped back in the pool, as well as the
+    number of actual workers used and samples per worker. }
   \label{tab:params:evoworkers} 
   \centering
   \small
@@ -514,6 +531,12 @@ released in GitHub under the GPL license.
   \end{tabular}
 \end{table}
 
+On the other hand, the parameters used for KafkEO are shown in Table
+\ref{tab:params:kafka}. Every function runs an evolutionary algorithm
+for the shown number of iterations and with the population size also
+shown. The number of initial messages act as an initial trigger, being
+thus equivalent to the number of parallel functions.
+%
 \begin{table}
   \small
   \caption{KafkEO Setup}
@@ -529,7 +552,10 @@ released in GitHub under the GPL license.
   \end{tabular}
 \end{table}
 
-
+The evolutionary algorithm used the standard DEAP library, written in
+Python. The parameters for the evolutionary algorithm were fixed and
+are shown in Table \ref{tab:GAparams}
+%
 \begin{table}
   \small
   \caption{ DEAP GA EvoWorker Parameters }
