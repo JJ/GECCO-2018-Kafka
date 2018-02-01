@@ -496,10 +496,14 @@ released in GitHub under the GPL license.
 \section{Experiments and results}
 \label{sec:res}
 In this section we compare the performance of KafkEO against 
-the EvoSpace \cite{GValdez2015}  pool-based architecture, using the Noiseless
-BBOB testbed. It is expected that both algorithms achieve similar results as 
-they are functionally equivalent. The EvoSpace algorithm presented, follows the 
-basic  EvoSpace model in which EvoWorkers  asynchronously interact with the
+the EvoSpace \cite{GValdez2015}  pool-based architecture, using the first five
+functions of the Noiseless BBOB testbed \cite{hansen2016coco}. 
+These are noisefree, real-parameter, single-objective, separable functions: (1)
+Sphere Function, (2)Ellipsoidal Function, a highly multimodal (3)Rastrigin 
+Function, (4) Buche-Rastrigin Function and the purely lineal function (5) 
+Linear Slope. It is expected that both algorithms achieve similar results as 
+they are functionally equivalent. The EvoSpace implementation follows the 
+basic EvoSpace model in which EvoWorkers  asynchronously interact with the
 population pool by taking samples of the population to perform a standard
 evolutionary search on the samples, to then return newly evolved solutions back
 to the pool.  
@@ -532,6 +536,7 @@ event-based EA we are introducing in this paper; the parameters used
 in this algorithm are shown in Table \ref{tab:params:evoworkers}.
 % Maybe you could explain this algorithm a little bit more.
 % Are we using all these combinations? - JJ
+%% Got mixed up, but it was explained a few paragraphs before.
 \begin{table}
   \small
   \caption{EvoWorker Setup, including the number of dimensions of the
@@ -613,8 +618,11 @@ are shown in Table \ref{tab:GAparams}
  \bbobppfigdimlegend{$f_1$ and $f_{24}$}
  }
 \end{figure*}
-
-
+The results obtained show that the basic Genetic Algorithm does not performed 
+very well against the testbed, specially when compared agains other nature 
+inspired algorithms like PSO or other hybrid approaches \cite{hansen2010bbob}.
+But, never the less both implementations reach similar results with the same 
+effort. One problem that pool-based algorithms have, is the need to specify the initial number of individuals that are in the pool and the need to always keep a minimum number of individuals in the pool. This is not the case in KafkEO, because there is no need to have a repository for the population.     
 \section{Conclusions}
 \label{sec:con}
 
