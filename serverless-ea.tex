@@ -315,6 +315,14 @@ frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
 able to accomodate all kinds of ephemeral and heterogeneous
 resources. 
 
+% Moved here to make it go to the top of page 3
+\begin{figure*}[t!bp]
+\includegraphics[width=0.95\textwidth]{img/kafka.png}
+\caption{This chart shows the general picture of KafkEO, with message
+  routes and the software components used for every part.}
+\label{fig:kafkeo}
+\end{figure*}
+%
 In the serverless, event based types of architectures we are going to
 be targeting in this paper, there has been so far no work that we know
 of. Similar setups including microservices have been employed by Salza et
@@ -324,14 +332,6 @@ by Salza by reducing it to functions, messages and rules or
 triggers. We will explain in detail these architectures in the next
 section.
 
-%
-\begin{figure*}[h!tbp]
-\includegraphics[width=0.95\textwidth]{img/kafka.png}
-\caption{This chart shows the general picture of KafkEO, with message
-  routes and the software components used for every part.}
-\label{fig:kafkeo}
-\end{figure*}
-%
 \section{Event based architectures and implementing evolutionary
   algorithms over them}
 \label{sec:methods}
@@ -437,7 +437,7 @@ results of these instances are then received back by every one of the
 instances.
 
 In fact, this kind of system would be more functionally equivalent to
-a pool-based architecture \ref{bollini1999distributed}, since the
+a pool-based architecture \cite{bollini1999distributed}, since the
 queue acts as a pool from where populations are taken and where
 evolved populations return. Actually, the pool becomes a {\em stream}
 in this case, but in fact the pool also evolves, changing its
