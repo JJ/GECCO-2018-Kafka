@@ -497,6 +497,44 @@ released in GitHub under the GPL license.
 
 \section{Experiments and results}
 \label{sec:res}
+
+\begin{table}
+  \small
+  \caption{EvoWorker Setup}
+  \label{tab:params} 
+  \centering
+  \small
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    Dimension & 2 & 3 & 5 & 10 & 20 & 40\\ \hline
+    Iterations per Sample  & 50 & 50 & 50 & 50 & 50 & 50\\ \hline
+    Sample Size  & 100 & 100 & 100 & 200 & 200 & 200 \\ \hline
+    Samples per Worker & 20 & 30 & 25 & 25 & 25 & 25  \\ \hline
+    PSO Workers & 1 & 1 & 2 & 2 & 4 & 8  \\ \hline
+    GA Workers & 1 & 1 & 2 & 2 & 4 & 8  \\ \hline
+  \end{tabular}
+\end{table}
+
+
+\begin{table}
+  \small
+  \caption{ DEAP GA EvoWorker Parameters }
+  \label{tab:GAparams} 
+  \centering
+  \small
+  \begin{tabular}{|l|c|}
+    \hline
+    Selection & Tournament size=12\\ \hline
+    Mutation & Gaussian $\mu=0.0$, $\sigma=0.5$, indbp=0.05  \\ \hline
+    Mutation Probability & [.1,.6]  \\ \hline
+    Crossover & Two Point  \\ \hline
+    Crossover Probability& [.8,1]  \\ \hline
+  \end{tabular}
+\end{table}
+
+
+
+
 \begin{figure*}
 \begin{tabular}{l@{\hspace*{-0.025\textwidth}}l@{\hspace*{-0.025\textwidth}}l@{\hspace*{-0.025\textwidth}}l}
 \includegraphics[width=0.266\textwidth]{ppfigdim_f001}&
