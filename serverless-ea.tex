@@ -471,6 +471,39 @@ released in GitHub under the GPL license.
 \section{Conclusions}
 \label{sec:con}
 
+% TO DO ------------------------------------------------
+
+This paper is intended to introduce a simple proof of concept of a
+serverless implementation of an evolutionary algorithm. As has been
+explained, it needs a stateful {\em mixer} to be able to perform {\em
+  migration} and mixing among populations. A straighforward first step
+would be to paralellize this service so that it can respond faster to
+incoming evolved populations; however, this scaling up should be done
+by hand and a second step will be to make the architecture totally
+serverless by using functions that perform this mixing in a stateless
+way. This might have the secondary effect of simplifying the messaging
+services to a single topic, and making deployment much easier by
+avoiding the desktop or server back-end we are using now for that
+purpose.
+
+Other changes will go in the direction of testing the performance of
+the system and computing the cost, so that we can increase the former
+without increasing the latter. Since there is room for increasing
+paralellism, we will try different ways of obtaining better
+algorithmic results by making a parameter sensitivity analysis,
+including population size, length of evolution runs, and other
+algorithmic parameters.
+
+Once those algorithmic baselines have been set, we will experiment
+with different metaheuristics such as particle swarm optimization, or
+even try for heterogeneous functions with different evolutionary
+algorithm parameters, with the purpose of reducing the number of
+parameters to set at the start.
+
+On the implementation side, we will work on the automatic deployment
+of this architecture to any free or vendor serverless implementation,
+including maybe abstraction layers such as the {\tt serverless}
+library. 
 
 
 
