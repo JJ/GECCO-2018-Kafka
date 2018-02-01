@@ -175,7 +175,9 @@ triggered by the creation of a initial population, and would perform
 one or several generations in a function, returning the result to the
 message hub and thus triggering a new action. This would be
 functionally equivalent to a traditional, serial evolutionary
-algorithm, and might be cheaper than a XaaS implementation since it
+algorithm, and might be cheaper than a XaaS (where X can be P as in
+platform, I as in infraestructure, C as in container or even DB, since
+whole systems can be implemented using a database engine as a server framework) implementation since it
 would eschew some overhead. However, it would incur also in some
 overhead by reading and writing to the message queue and, since it
 would be working on a single population, no scaling could be done,
@@ -237,6 +239,7 @@ as new technologies became commercially available, or even
 before. There were very early implementations of evolutionary
 algorithms on transputers \cite{voigt1990modelling}, the world wide
 % transputers, had to google that
+% you're too young, man - JJ 
 web \cite{chong:1999:jDGPi} or the first generation of cloud
 services
 \cite{DBLP:journals/corr/abs-1105-6205,de2017parallel,salza2017ccube}. Evolutionary
@@ -302,18 +305,25 @@ obtaining good speedups; in this last case, it uses a problem-specific
 way of distributing tasks, without resourcing to a change of the
 evolutionary algorithm itself.
 
+Besides, there are new computation models for evolutionary algorithms
+that are not functionally equivalent to a canonical EA, but have
+proved to work well in these new environments. Pool based EAs,
+\cite{bollini1999distributed}, with a persistent population that can
+be tapped to retrieve single individuals or pools of them and return
+evaluated or evolved sub-populations, have been used for new
+frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
+able to accomodate all kinds of ephemeral and heterogeneous
+resources. 
+
 In the serverless, event based types of architectures we are going to
-be targeting in this paper, there has been so far no paper
-published. Similar setups including microservices have been employed by Salza et
+be targeting in this paper, there has been so far no work that we know
+of. Similar setups including microservices have been employed by Salza et
 al. \cite{salza2017ccube}; however, the serverless system adds a layer
 of abstraction to event-based queuing systems such as the one employed
 by Salza by reducing it to functions, messages and rules or
 triggers. We will explain in detail these architectures in the next
 section.
 
-\section{Event based architectures and implementing evolutionary
-  algorithms over them}
-\label{sec:methods}
 %
 \begin{figure*}[h!tbp]
 \includegraphics[width=0.95\textwidth]{img/kafka.png}
@@ -321,6 +331,10 @@ section.
   routes and the software components used for every part.}
 \label{fig:kafkeo}
 \end{figure*}
+%
+\section{Event based architectures and implementing evolutionary
+  algorithms over them}
+\label{sec:methods}
 %
 \begin{figure*}[h!tbp]
 \includegraphics[width=0.95\textwidth]{img/kafkEO.png}
