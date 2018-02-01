@@ -338,17 +338,19 @@ stands for Evolving Objects) and introduced in this paper.
 The main reason why we have made this choice is availability of
 resources, but also
 the fact that all parts of the implementation are open source and can
-be deployed in desktop machines or other cloud providers by simply
-changing names and IPs.It is also a good practice to implement free
+be deployed in desktop machines or other cloud providers by changing
+the configuration, as long as it is implemented using the same tools. It is also a good practice to implement free
 % Maybe remove:  by simply changing names and IPs
 % Is not a problem to do, but is litlle more than that.
+% Clarified. Also to make clear that it's only if we keep using
+% OpenWhisk and Kafka - JJ
 software using free software, making it widely available to the
 scientific community to create their own versions or to adapt it to
 their own problems.
 
 The layers and message flow in the application are shown in Figure
 \ref{fig:kafkeo}, which also includes the evolutionary components. We
-will focus for the time being in the general picture. A serverless
+will focus for the time being in the general picture: a serverless
 architecture using as a backbone a messaging service, which in this case
 takes the shape of Kafka/MessageHub. These messages are produced and
 consumed by a service, which can also store it in an external database
