@@ -113,7 +113,6 @@ Cloud computing is increasingly becoming the dominant way of running
 the server side of applications nowadays. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
-%%%% Hard to read:
 The availability of resources only limited by your budget, and in many
 cases free, as well as the inherent reproducibility of cloud
 deployments has been a boon for scientific computing. However,
@@ -124,18 +123,14 @@ for scientific workflows and implementation of algorithms. Cloud
 architectures favour asyhchronous communication over heterogeneous
 resources, and shifting from a monolithic n-tier and mostly sequential
 to an asynchronously parallel architecture will imply also important
-reformulation in the algorithms to take full advantage of this new mode.
-%%%% Maybe it's better now - JJ
-%%%% Much better - M
+reformulation in the algorithms to take full advantage of this new
+mode.
+
   Cloud native applications add a layer of abstraction to the
   underlying distributed computing system, seamlessly integrating
   different elements in a single data flow that is managed by the
   cloud provider, allowing the user to focus on code and connections
   among different services. Describing them as {\em native} points
-  % I do not understand: The fact that services? are {\em native} points
-  % to their new architecture,
-  % Check it out now - JJ
-  % OK! - M
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
   services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
@@ -152,12 +147,10 @@ reformulation in the algorithms to take full advantage of this new mode.
   %% We should focus more on STATEFULL vs STATELESS than ACTIVE vs
   %% INACTIVE
   % Please feel free to add - JJ
+
   It is also taken to an atomic extreme
   with the so-called serverless architectures \cite{Varghese2018849},
   which reduce the need to deploy code by the user or vendor to single, stateless
-  % Vendor code? Whats that?
-  % user or vendor - check it out now - JJ
-  % Ok, I its clear now - M
   functions, that get activated via {\em rules}, {\em triggers} or
   explicitly, reacting to events comusmed from
   a message queue or bus that
@@ -170,7 +163,7 @@ reformulation in the algorithms to take full advantage of this new mode.
   with its Lambda product, to be followed closely by releases by Azure
   (Microsoft) and Google and an open source implementation, OpenWhisk,
   released by IBM \cite{Baldini2016287}.
-%%% Great!!
+
 There is usually no direct translation of most algorithms to this
 architecture. This is specially true in evolutionary algorithms, who
 rely on state, in the shape of a population, to perform their search
@@ -187,7 +180,7 @@ would eschew some overhead. However, it would incur also in some
 overhead by reading and writing to the message queue and, since it
 would be working on a single population, no scaling could be done,
 since there would be a single pipeline.
-%%%
+
 In this paper we want to introduce KafkEO, a serverless framework for
 evolutionary algorithms and other population-based systems. The main
 design objective is to leverage the scaling capabilities of a
