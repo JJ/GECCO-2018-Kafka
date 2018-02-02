@@ -525,9 +525,16 @@ indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters are
 
 The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
-totality of experiments costed about 40\$, with cost split between
-MessageHub and IBM Functions, the BlueMix implementation of the
-OpenWhisk serverless framework.
+totality of experiments costed about 12\$. Most of the cost is due to
+the {\em partitions}, that is, the hosted messaging service
+itself. The messages total less than one dollar. Partitions are
+essential for a high throughput; a messaging queue will be able to
+process as many messages as the partitions are able to get through in
+parallel; this means that cost will scale with the number of messages
+in a complex way, not simply linearly, and design decisions will have
+to be taken. The baseline is that the best option is to maximize the
+number of messages that can be borne by a particular partition, and
+try to minimize the number of partitions to avoid scaling costs. 
 
 We used an already published algorithm, EvoWorker, as a base for
 comparison, and used the well known BBOB benchmarks. EvoWorker is
