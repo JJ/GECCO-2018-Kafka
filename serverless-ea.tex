@@ -626,15 +626,31 @@ are shown in Table \ref{tab:GAparams}
  \bbobppfigdimlegend{$f_1$ and $f_{24}$}
  }
 \end{figure*}
-The results obtained show that the basic Genetic Algorithm does not perform
+%
+The results of the comparison are shown in Figure \ref{fig:aRTgraphs},
+which follow the classical BBOB 2009 format, which includes the amount
+of effort devoted to finding a certain fitness level and time needed
+to do it. The EvoSpace and KafkEO results are shown side by side, only
+for the sake of comparison, since we are only interested for the time
+being in the baseline performance of the proof of concept.
+
+The results obtained show that the basic Genetic Algorithm implemented
+in KafkEO does not perform
 very well against the testbed, specially when compared agains other nature 
 inspired algorithms like PSO or other hybrid approaches \cite{hansen2010bbob}.
-Nevertheless both implementations, shown side by side, reach similar results with the same 
-effort. One problem that pool-based algorithms have is the need to
+However, both implementations, shown side by side, reach similar results with the same 
+effort; and the results in this case have been obtained with less
+parameter, simply the number of initial populations, and no tweaking
+of the evolutionary algorithm parameters.
+
+One problem that pool-based algorithms have is the need to
 specify the initial number of individuals to place in the pool and the
 need to always keep a minimum number of individuals in the pool. This
 is not the case in KafkEO, because there is no need to have a
-repository for the population.
+repository for the population. However, population size and the number
+of generations turned in by every instantiation of the functions have
+to be tuned, which is something that will have to be left as future
+work.
 
 
 \section{Conclusions}
