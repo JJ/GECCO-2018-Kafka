@@ -522,7 +522,6 @@ will run before sending back to the server the resulting population. Finally,
 the number of times an  EvoWorker will take, evolve and return a sample, is 
 indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters are shown in Table \ref{tab:params:evoworkers} 
 
-
 The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
 totality of experiments costed about 12\$. Most of the cost is due to
@@ -541,7 +540,10 @@ comparison, and used the well known BBOB benchmarks. EvoWorker is
 based in the EvoSpace \cite{DBLP:conf/evoW/ValdezTVGO13} pool-based
 evolutionary algorithm, the closest functionally to the stream or
 event-based EA we are introducing in this paper; the parameters used
-in this algorithm are shown in Table \ref{tab:params:evoworkers}.
+in this algorithm are shown in Table \ref{tab:params:evoworkers}. As
+the difficulty of the problem increases, this is reflected in the
+table parameters by increasing the sample size and the number of
+workers performing at the same time. 
 % Maybe you could explain this algorithm a little bit more.
 % Are we using all these combinations? - JJ
 %% Got mixed up, but it was explained a few paragraphs before.
@@ -568,7 +570,13 @@ On the other hand, the parameters used for KafkEO are shown in Table
 \ref{tab:params:kafka}. Every function runs an evolutionary algorithm
 for the shown number of iterations and with the population size also
 shown. The number of initial messages act as an initial trigger, being
-thus equivalent to the number of parallel functions.
+thus equivalent to the number of parallel functions; this is the
+tunable parameter used for increasing performance when the problem
+dimension, and thus difficulty, increases; the population size is also
+increased, so that initial diversity is higher. Please note that every
+population is generated randomly, so that the population size would
+have to be multiplied by the number of initial messages to get to the
+total population involved in the experiment. 
 
 \begin{table}
   \small
@@ -586,8 +594,16 @@ thus equivalent to the number of parallel functions.
 \end{table}
 
 The evolutionary algorithm used the standard DEAP library, written in
-Python. The parameters for the evolutionary algorithm were fixed and
-are shown in Table \ref{tab:GAparams}
+Python \cite{fortin2012deap}. The parameters for the evolutionary algorithm were fixed and
+are shown in Table \ref{tab:GAparams}. These parameters have been
+chosen as the usual, and default, setup in any experiment, without
+making any attempt to adapt it to this particular flavor of the
+algorithm. In particular, the tournament size injects a high selective
+pressure which is known to decrease diversity. Besides, despite the
+system allowing for different parameters for every instance, even
+working in parallel, or random parameters for every instantiation, we
+have made no attempt to use this feature in this proof of concept
+stage of the algorithm. 
 %
 \begin{table}
   \small
