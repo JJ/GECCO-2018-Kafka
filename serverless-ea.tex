@@ -721,8 +721,12 @@ work.
 % TO DO ------------------------------------------------
 
 This paper is intended to introduce a simple proof of concept of a
-serverless implementation of an evolutionary algorithm. As has been
-explained, it needs a stateful {\em mixer} to be able to perform {\em
+serverless implementation of an evolutionary algorithm. The main
+problem with this algorithm, shared by many otheres, is to turn
+something that has state (in the form of loop variables or anything
+else) into a stateless system. In this inial proof of concept we have
+opted to create a stateful {\em mixer} outside the serverless (and
+thus stateless) platform to be able to perform {\em
   migration} and mixing among populations. A straighforward first step
 would be to paralellize this service so that it can respond faster to
 incoming evolved populations; however, this scaling up should be done
@@ -732,6 +736,17 @@ way. This might have the secondary effect of simplifying the messaging
 services to a single topic, and making deployment much easier by
 avoiding the desktop or server back-end we are using now for that
 purpose.
+
+The proof of concept is a good adaptation of an evolutionary algorithm
+to the serverless architecture, with a performance that is comparable,
+in terms of number of evaluations, to pool-based architectures. Even
+if results right now are not competitive, the scalability of the
+architecture and also the possibilities it offers in terms of tuning
+parameters for the algorithm, even using heterogeneous functions
+tapping the same {\em topic} (channel), offer the chance of improving
+running time as well as the algorithm itself in terms of number of
+evaluations. This is an avenue that we will explore in the near
+future. 
 
 Other changes will go in the direction of testing the performance of
 the system and computing the cost, so that we can increase the former
