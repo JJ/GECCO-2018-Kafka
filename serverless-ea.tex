@@ -513,7 +513,7 @@ EvoWorkers were implemented in Python with the same code as KafkEO and using
 DEAP \cite{fortin2012deap} for the GA service function. The code is in the
 following GitHub repository: \url{https://hidden.com}. Before each
 experiment, a script initializes the population on the server, creating the
-number of individuals specified by the {\em Population Size} parameter, this
+number of individuals specified by the {\em Pool Size} parameter, this
 size depends on the dimension of the problem according to the BOBB testbed. 
 When starting each EvoWorker, the following parameters are used: first, the
 {\em Sample Size} indicating the number of individuals the worker would take
@@ -521,7 +521,7 @@ from the server on each interaction, then the {\em Iterations per Sample}
 parameter specifies the number of generations or iterations the local algorithm
 will run before sending back to the server the resulting population. Finally,
 the number of times an  EvoWorker will take, evolve and return a sample, is 
-indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters 
+indicated by the {\em Samples per Worker} parameter. The number of EvoWorkers to run for the experiment is given by the {\em GA Workers} parameter.  The EvoSpace parameters 
 are shown in Table \ref{tab:params:evoworkers}.
  These parameters are set for  
 each dimension and they indicate the effort in number of evaluations. In both
@@ -560,7 +560,7 @@ each dimension and they indicate the effort in number of evaluations. In both
     Sample Size  & 100 & 100 & 100 & 200 & 200 & 200 \\ \hline
     Samples per Worker & 20 & 30 & 25 & 25 & 25 & 25  \\ \hline
     GA Workers & 2 & 2 & 4 & 5 & 8 & 16  \\ \hline
-    EvoSpace Pool Size & 259 & 250 & 500 & 1000 & 2000 & 4000  \\ \hline
+    Pool Size & 250 & 250 & 500 & 1000 & 2000 & 4000  \\ \hline
   \end{tabular}
 \end{table}
 
@@ -568,13 +568,15 @@ On the other hand, the parameters used for KafkEO are shown in Table
 \ref{tab:params:kafka}. Every function runs an evolutionary algorithm
 for the shown number of iterations and with the population size also
 shown. The number of initial messages act as an initial trigger, being
-thus equivalent to the number of parallel functions; this is the
+thus equivalent to the number of parallel functions or workers; this is the
 tunable parameter used for increasing performance when the problem
 dimension, and thus difficulty, increases; the population size is also
 increased, so that initial diversity is higher. Please note that every
 population is generated randomly, so that the population size would
 have to be multiplied by the number of initial messages to get to the
-total population involved in the experiment. 
+initial population involved in the experiment. The effort is limited by the 
+maximum number of messages consumed by the Controller from the  {\sf evolved-population-objects} message queue. The maximum number is calculated 
+by multiplying the {\em  Maximum Iterations} and {\em Initial Messages} parameters. Again for a $10^5 \cdot D$ maximum number of evaluations.
 
 \begin{table}
   \small
@@ -588,6 +590,7 @@ total population involved in the experiment.
     Iterations & 50 & 50 & 50 & 50 & 50 & 50\\ \hline
     Population Size  & 100 & 100 & 100 & 200 & 200 & 200 \\ \hline
     Initial Messages & 2 & 2 & 4 & 5 & 8 & 16  \\ \hline
+    Maximum Iterations & 2 & 2 & 4 & 5 & 8 & 16  \\ \hline
   \end{tabular}
 \end{table}
 
@@ -597,17 +600,26 @@ are shown in Table \ref{tab:GAparams}. These parameters have been
 chosen as the usual, and default, setup in any experiment, without
 making any attempt to adapt it to this particular flavor of the
 algorithm. In particular, the tournament size injects a high selective
-pressure which is known to decrease diversity. Besides, despite the
-system allowing for different parameters for every instance, even
-working in parallel, or random parameters for every instantiation, we
-have made no attempt to use this feature in this proof of concept
-stage of the algorithm. 
+pressure which is known to decrease diversity. The system also allows 
+to set different parameters for every instance, in this proof of concept 
+only to parameters were randomly set,{\em Mutation Probability} uniformly  random in the $[.1,.6]$ range, and {\em Crossover Probability} random on $[.8,1]$.
+
+%Besides, despite the
+%system allowing for different parameters for every instance, even
+%working in parallel, or random parameters for every instantiation, we
+%have made no attempt to use this feature in this proof of concept
+%stage of the algorithm. 
+% Yes we did, Mutation Probability random in the range: [.1,.6] and 
+% Crossover Probability& [.8,1]  \\ \hline
 
 The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
 totality of experiments costed about 12\$. Most of the cost is due to
 the {\em partitions}, that is, the hosted messaging service
-itself. The messages total less than one dollar. Partitions are
+itself. The messages total less than one dollar. 
+% The messages total less than one dollar. Please explain more - M
+% The sending? space? is for message delivered?   
+Partitions are
 essential for a high throughput; a messaging queue will be able to
 process as many messages as the partitions are able to get through in
 parallel; this means that cost will scale with the number of messages
@@ -668,12 +680,13 @@ very well against the testbed, specially when compared agains other nature
 inspired algorithms like PSO or other hybrid approaches \cite{hansen2010bbob}.
 However, both implementations, shown side by side, reach similar results with the same 
 effort; and the results in this case have been obtained with less
-parameter, simply the number of initial populations, and no tweaking
-of the evolutionary algorithm parameters.
+parameters, with out the need to specify an initial Pool size and  
+% parameter, simply the number of initial populations, and no tweaking
+with out tuning the evolutionary algorithm parameters.
 
-One problem that pool-based algorithms have is the need to
+This is a problem that pool-based algorithms have: we need to
 specify the initial number of individuals to place in the pool and the
-need to always keep a minimum number of individuals in the pool. This
+burden of always keeping a minimum number of individuals in the pool. This
 is not the case in KafkEO, because there is no need to have a
 repository for the population. However, population size and the number
 of generations turned in by every instantiation of the functions have
