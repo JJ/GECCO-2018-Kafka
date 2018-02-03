@@ -501,49 +501,46 @@ the EvoSpace \cite{GValdez2015}  pool-based architecture, using the first five
 functions of the Noiseless BBOB testbed \cite{hansen2016coco}. 
 These are noisefree, real-parameter, single-objective, separable functions: (1)
 Sphere Function, (2)Ellipsoidal Function, a highly multimodal (3)Rastrigin 
-Function, (4) Buche-Rastrigin Function and the purely lineal function (5) 
-Linear Slope. It is expected that both algorithms achieve similar results as 
+Function, (4)Buche-Rastrigin Function and the purely lineal function (5)Linear 
+Slope. It is expected that both algorithms achieve similar results as 
 they are functionally equivalent. The EvoSpace implementation follows the 
 basic EvoSpace model in which EvoWorkers  asynchronously interact with the
 population pool by taking samples of the population to perform a standard
 evolutionary search on the samples, to then return newly evolved solutions back
 to the pool.  
 
-EvoWorkers were implemented in Python taking using the same code as KafkEO using DEAP \cite{fortin2012deap} for the GA service function. The code is in the
+EvoWorkers were implemented in Python with the same code as KafkEO and using 
+DEAP \cite{fortin2012deap} for the GA service function. The code is in the
 following GitHub repository: \url{https://hidden.com}. Before each
 experiment, a script initializes the population on the server, creating the
-number of individuals specified in the {\em Population Size} parameter, this
-size  depends on the dimension of the problem according to de BOBB testbed. 
+number of individuals specified by the {\em Population Size} parameter, this
+size depends on the dimension of the problem according to the BOBB testbed. 
 When starting each EvoWorker, the following parameters are used: first, the
-{\em Sample Size} indicates the number of individuals the worker would take
+{\em Sample Size} indicating the number of individuals the worker would take
 from the server on each interaction, then the {\em Iterations per Sample} 
 parameter specifies the number of generations or iterations the local algorithm
 will run before sending back to the server the resulting population. Finally,
 the number of times an  EvoWorker will take, evolve and return a sample, is 
-indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters are shown in Table \ref{tab:params:evoworkers} 
+indicated by the {\em Samples per Worker} parameter. The EvoSpace parameters 
+are shown in Table \ref{tab:params:evoworkers}.
+ These parameters are set for  
+each dimension and they indicate the effort in number of evaluations. In both
+ experiments the maximum number of evaluations is $10^5 \cdot D$. For instance, 
+ for $D = 2$, the maximum number of evaluations is $200,000$ which is obtained by multiplying
+  the parameters int the first column of Table \ref{tab:params:evoworkers}: $50 \cdot 100 \cdot 20 \cdot 2$. Also both algorithms limit the search space to $[-5,5]^D$. 
 
-The experiments using the above described framework were performed
-during the month of January using a paid IBM BlueMix subscription. The
-totality of experiments costed about 12\$. Most of the cost is due to
-the {\em partitions}, that is, the hosted messaging service
-itself. The messages total less than one dollar. Partitions are
-essential for a high throughput; a messaging queue will be able to
-process as many messages as the partitions are able to get through in
-parallel; this means that cost will scale with the number of messages
-in a complex way, not simply linearly, and design decisions will have
-to be taken. The baseline is that the best option is to maximize the
-number of messages that can be borne by a particular partition, and
-try to minimize the number of partitions to avoid scaling costs. 
 
-We used an already published algorithm, EvoWorker, as a base for
-comparison, and used the well known BBOB benchmarks. EvoWorker is
-based in the EvoSpace \cite{DBLP:conf/evoW/ValdezTVGO13} pool-based
-evolutionary algorithm, the closest functionally to the stream or
-event-based EA we are introducing in this paper; the parameters used
-in this algorithm are shown in Table \ref{tab:params:evoworkers}. As
-the difficulty of the problem increases, this is reflected in the
-table parameters by increasing the sample size and the number of
-workers performing at the same time. 
+
+% ALL THIS IS REPEATED TWO PARAGRAPHS ABOVE - Mario
+%We used an already published algorithm, EvoWorker, as a base for
+%comparison, and used the well known BBOB benchmarks. EvoWorker is
+%based in the EvoSpace \cite{DBLP:conf/evoW/ValdezTVGO13} pool-based
+%evolutionary algorithm, the closest functionally to the stream or
+%event-based EA we are introducing in this paper; the parameters used
+%in this algorithm are shown in Table \ref{tab:params:evoworkers}. As
+%the difficulty of the problem increases, this is reflected in the
+%table parameters by increasing the sample size and the number of
+%workers performing at the same time. 
 % Maybe you could explain this algorithm a little bit more.
 % Are we using all these combinations? - JJ
 %% Got mixed up, but it was explained a few paragraphs before.
@@ -563,6 +560,7 @@ workers performing at the same time.
     Sample Size  & 100 & 100 & 100 & 200 & 200 & 200 \\ \hline
     Samples per Worker & 20 & 30 & 25 & 25 & 25 & 25  \\ \hline
     GA Workers & 2 & 2 & 4 & 5 & 8 & 16  \\ \hline
+    EvoSpace Pool Size & 259 & 250 & 500 & 1000 & 2000 & 4000  \\ \hline
   \end{tabular}
 \end{table}
 
@@ -604,6 +602,20 @@ system allowing for different parameters for every instance, even
 working in parallel, or random parameters for every instantiation, we
 have made no attempt to use this feature in this proof of concept
 stage of the algorithm. 
+
+The experiments using the above described framework were performed
+during the month of January using a paid IBM BlueMix subscription. The
+totality of experiments costed about 12\$. Most of the cost is due to
+the {\em partitions}, that is, the hosted messaging service
+itself. The messages total less than one dollar. Partitions are
+essential for a high throughput; a messaging queue will be able to
+process as many messages as the partitions are able to get through in
+parallel; this means that cost will scale with the number of messages
+in a complex way, not simply linearly, and design decisions will have
+to be taken. The baseline is that the best option is to maximize the
+number of messages that can be borne by a particular partition, and
+try to minimize the number of partitions to avoid scaling costs. 
+
 %
 \begin{table}
   \small
