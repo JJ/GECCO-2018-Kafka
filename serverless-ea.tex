@@ -97,7 +97,7 @@ architecture of this kind that has been published and tested.
 KafkEO is free software and is also vendor-independent, using
 open source tools for the implementation: OpenWhisk is the serverless
 framework used and Kafka, the messaging hub. In this paper a proof of
-concept of KafkEO is presented and evaluatef; the experiments show that resources are
+concept of KafkEO is presented and evaluated; the experiments show that resources are
 used efficiently and that the cost to the cloud user is more
 competitive, resulting in savings when compared against other cloud
 implementations. The impact on the algorithm of the design around
@@ -152,7 +152,7 @@ the server side of applications nowadays. Besides the convenience of the pay-as-
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 The availability of resources only limited by your budget, and in many
-cases free, as well as the inherent reproducibility of cloud
+cases free, as well as the inherent reproductibility of cloud
 deployments has been a boon for scientific computing. However,
 programming the cloud means that monolithic applications, that is,
 applications built on a single stack of services that communicate by
@@ -389,7 +389,7 @@ architectures share the common trait of consisting of several services
 with a single concern, that is, providing a single processing value,
 in many case stateless, and coupled using lightweight protocols such
 as REST and messaging buses that carry information from every service
-to the next. In this case, we are going to be using IBM's Bluemix
+to the next. In this case, we are going to be using IBM's BlueMix
 service, which includes OpenWhisk as a serverless framework and
 MessageHub, also a vendor implementation of the Kafka messaging
 service; this last one gives name to our framework, called KafkEO (EO
@@ -645,7 +645,7 @@ The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
 totality of experiments costed about 12\$. Most of the cost is due to
 the {\em partitions}, that is, the hosted messaging service
-itself. The amount paid for the messages in the Bluemix platform
+itself. The amount paid for the messages in the BlueMix platform
 totals less than one dollar; messages are paid by the hundreds of
 thousands delivered, and are actually not the most expensive part of the
 implementation of the algorithm.
