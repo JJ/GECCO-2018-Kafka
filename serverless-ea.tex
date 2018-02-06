@@ -94,7 +94,7 @@ algorithm to this new cloud-native format. As far as we know, this is the first
 architecture of this kind that has been published and tested, and is free software and vendor-independent, based on OpenWhisk and Kafka. This paper presents a proof of concept, examines its cost, and tests the impact on the algorithm of the design around
 cloud native and asynchronous system by comparing it on
 the well known BBOB benchmarks with other pool-based architectures,
-with which it has great functional resemblance. Kafkeo results are quite competitive with similar architectures.
+with which it has remarkable functional resemblance. Kafkeo results are quite competitive with similar architectures.
 \end{abstract}
 
 \begin{CCSXML}
@@ -141,15 +141,15 @@ the standard platform for the client side. Besides the convenience of the pay-as
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 The availability of resources only limited by your budget, and in many
-cases free, as well as the inherent reproductibility of cloud
-deployments has been a boon for scientific computing. However,
+cases free, as well as the inherent reproducibility of cloud
+deployments, has been a boon for scientific computing. However,
 programming the cloud means that monolithic applications, that is,
 applications built on a single stack of services that communicate by
 layers, are no longer the best or most efficient architectural design
 for scientific workflows and implementation of algorithms. Cloud
-architectures favour asynchronous communication over heterogeneous
+architectures favor asynchronous communication over heterogeneous %favor: american
 resources, and shifting from a monolithic n-tier and mostly sequential
-to an asynchronously parallel architecture will imply also important
+to an asynchronously parallel architecture will also imply important
 reformulation in the algorithms to take full advantage of this new
 mode.
 
@@ -160,26 +160,48 @@ mode.
   among different services. Describing them as {\em native} points
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
-services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
+services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some event and
   {\em living} only while they are doing some kind of processing and
   not keeping state from one invocation to the next.
 
-  This
-  reactivity, besides allowing massive and independent deployment and
-  scaling, is also more economical than monolithic infrastructure as
-  a service (IaaS) or platform as a service (PaaS), or even Container
-  as a Service (CaaS), which need to be active all the time and are
-  paid by the size and time in order to maintain their state. At any
-  rate, while the ultra-fast activation time is one of the main
-  selling point of Functions as a Service, from our point of view
-  their most interesting feature is the fact that they provide
-  stateless processing, and any algorithm must be adapted to that fact
-  and turned, at least in part, into a series of stateless steps that
-  work on a data stream.
+
+
+
+
+%  This
+%  reactivity, besides allowing massive and independent deployment and
+%  scaling, is also more economical than monolithic infrastructure as
+%  a service (IaaS) or platform as a service (PaaS), or even Container
+%  as a Service (CaaS), which need to be active all the time and are
+%  paid by the size and time in order to maintain their state.
+%%
+%%  breaking this into multiple sentences. - Mario
+
+Reactive systems not only allow massive scaling and independent deployment they
+are also more economical than other monolithic options.  Platform as a service
+(PaaS) or even Container as a Service (CaaS) approaches need to be running all
+the time in order to maintain their state, so they are paid for their size and
+and aslo for time they remain active.
+%At any
+%  rate, while the ultra-fast activation time is one of the main
+%  selling points of Functions as a Service, from our point of view
+%  their most interesting feature is the fact that they provide
+%  stateless processing, and any algorithm must be adapted to that fact
+%  and turned, at least in part, into a series of stateless steps that
+%  work on a data stream.
+
+% Other option for the sentence above:
+At any rate, while one of the main selling points of Functions as a Service is
+their ultra-fast activation time, from our point of view their most interesting
+feature is the fact that they provide stateless processing. An important caveat
+of stateless processing is that any algorithm must be adapted to this fact and
+turned, at least in part, into a series of stateless steps that work on a data
+stream.
+
 
   It is also taken to an atomic extreme
   with the so-called serverless architectures \cite{Varghese2018849},
-  which reduce the need to deploy code by the user or vendor to single, stateless
+  which allow vendors and users to deploy code as single, stateless
   functions, that get activated via {\em rules}, {\em triggers} or
   explicitly, reacting to events consumed from
   a message queue or bus that
@@ -195,7 +217,7 @@ services, in fact {\em microservices} \cite{microservices}, which in many cases 
 
 These architectures are {\em event-based} in the sense that program
 flow is governed by events, which in this case are going to be simply
-messages received by MessageHub. These {\em events} trigger actions,
+messages received by the MessageHub service. These {\em events} trigger actions,
 and actions create new message/events which start the circuit all over
 again. This is not the only mode of action in general serverless
 architectures; however, since they define a temporal axis and make new
@@ -217,7 +239,7 @@ functionally equivalent to a traditional, serial evolutionary
 algorithm, and might be cheaper than a XaaS (where X can be P as in
 platform, I as in infrastructure, C as in container or even DB, since
 whole systems can be implemented using a database engine as a server framework) implementation since it
-would eschew some overhead. However, it would incur also in some
+would eschew some overhead. However, it would also incur in some
 overhead by reading and writing to the message queue and, since it
 would be working on a single population, no scaling could be done,
 since there would be a single pipeline.
@@ -226,12 +248,10 @@ In this paper we want to introduce KafkEO, a serverless framework for
 evolutionary algorithms and other population-based systems. The main
 design objective is to leverage the scaling capabilities of a
 serverless framework, as well as create a system that can be deployed
-on different architectures by using free software. Our intention has
+on different platforms by using free software. Our intention has
 also been to create an algorithm that is functionally equivalent to an asynchronous
 parallel, island-based, EA, which can use parallelism and at the same
-time reproduce mechanisms that are akin to migration. The island based
-paradigm is relatively standard in distributed applications, but in
-our case we have been used it since it allows for better parallelism
+time reproduce mechanisms that are akin to migration. The island-based paradigm is relatively standard in distributed EA applications, but in our case, we have been using it since it allows for better parallelism
 and thus performance, at the same time it makes keeping diversity
 easier while needing less free parameters to tune.
 
@@ -242,10 +262,13 @@ easier while needing less free parameters to tune.
 % OK, TO DO - M
 % And I have done it now... - JJ
 We will examine the results of this framework on some BBOB benchmarks,
-taking into account speed as well as number of evaluations, comparing
+taking into account
+%speed as well as
+the number of evaluations, comparing it
 against another Cloud ready parallel pool based implementation (with
-containers). The speed measurements are intended mainly as baseline,
-since no effort has been made to optimize it.
+containers).
+%The speed measurements are intended mainly as baseline,
+%since no effort has been made to optimize it.
 The
 implementation is also free software and can be downloaded from
 GitHub.
