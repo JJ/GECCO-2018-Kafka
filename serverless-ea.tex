@@ -756,7 +756,16 @@ parameters for the algorithm, even using heterogeneous functions
 tapping the same {\em topic} (channel), offer the chance of improving
 running time as well as the algorithm itself in terms of number of
 evaluations. This is an avenue that we will explore in the near
-future. 
+future. The whole set of experiments, done in the cloud with a desktop
+component, took more than running a single desktop experiment using
+EvoSpace. However, scaling was lineal with problem difficulty, which
+at least mean that we are not adding an additional level of complexity
+to the algorithm and might indicate that horizontal or vertical
+scaling would solve the problem. This kind of scaling also indicates
+that the stateful part, run in a desktop, has not for this problem
+size become a bottleneck. Even so, we consider that it is essential to
+create an algorithm architecture that will be fully serverless and,
+thus, stateless. 
 
 Other changes will go in the direction of testing the performance of
 the system and computing the cost, so that we can increase the former
