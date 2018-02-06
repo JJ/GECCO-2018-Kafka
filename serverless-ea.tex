@@ -149,12 +149,8 @@ BBOB benchmarks.
 \section{Introduction}
 
 Cloud computing is increasingly becoming the dominant way of running
-% enterprise applications? or server side, computing intensive
-% because in general the dominant way is mobile -M
-% but mobile need back-ends. I will try to qualify a bit more this
-% claim.
-the server side of applications nowadays, the same as the browser is
-the standard platform for the client side. . Besides the convenience of the pay-as-you-go
+the server side of most enterprise applications nowadays, the same as the browser is
+the standard platform for the client side. Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 The availability of resources only limited by your budget, and in many
@@ -179,7 +175,9 @@ mode.
   distributed paradigm to become a loosely connected collection of
 services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
   {\em living} only while they are doing some kind of processing and
-  not keeping state from one invocation to the next. This
+  not keeping state from one invocation to the next.
+
+  This
   reactivity, besides allowing massive and independent deployment and
   scaling, is also more economical than monolithic infrastructure as
   a service (IaaS) or platform as a service (PaaS), or even Container
@@ -234,13 +232,18 @@ serverless framework, as well as create a system that can be deployed
 on different architectures by using free software. Our intention has
 also been to create an algorithm that is functionally equivalent to an asynchronous
 parallel, island-based, EA, which can use parallelism and at the same
-time reproduce mechanisms that are akin to migration.
+time reproduce mechanisms that are akin to migration. The island based
+paradigm is relatively standard in distributed applications, but in
+our case we have been used it since it allows for better parallelism
+and thus performance, at the same time it makes keeping diversity
+easier while needing less free parameters to tune. 
 
 %%% Maybe a little more about the why Island?
 %%% Not only better performance in time, but also, more diverstity and less
 %%% parametrization
 % Please add something and I'll review it. - JJ
 % OK, TO DO - M
+% And I have done it now... - JJ
 We will examine the results of this framework on some BBOB benchmarks,
 taking into account speed as well as number of evaluations, comparing
 against another Cloud ready parallel pool based implementation (with
@@ -344,20 +347,12 @@ implicitly claiming this {\em functional equivalence} with the
 sequential evolutionary algorithms. Other contemporary systems such as
 \cite{10.1007/978-3-319-32149-3_46} use Spark to evaluate, in
 parallel, fitness for different machine learning models;
-\cite{de2015scalable} use Hadoop for evolutionary k-means clustering,
+Vianna de Oliveira and Coelho \cite{de2015scalable} use Hadoop for evolutionary k-means clustering,
 obtaining good speedups; in this last case, it uses a problem-specific
 way of distributing tasks, without resourcing to a change of the
 evolutionary algorithm itself.
 
-% Moved here to make it go to the top of page 3
-\begin{figure*}[t!bp]
-\includegraphics[width=0.95\textwidth]{img/kafka.png}
-\caption{Chart showing the general picture of KafkEO, with message
-  routes and the software components used for every part.}
-\label{fig:kafkeo}
-\end{figure*}
-%
-Besides, there are new computation models for evolutionary algorithms
+Besides these implementations using well known cloud services, there are new computation models for evolutionary algorithms
 that are not functionally equivalent to a canonical EA, but have
 proved to work well in these new environments. Pool based EAs,
 \cite{bollini1999distributed}, with a persistent population that can
@@ -366,7 +361,6 @@ evaluated or evolved sub-populations, have been used for new
 frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
 able to accommodate all kinds of ephemeral and heterogeneous
 resources. 
-
 
 In the serverless, event based types of architectures we are going to
 be targeting in this paper, there has been so far no work that we know
@@ -377,6 +371,16 @@ by Salza by reducing it to functions, messages and rules or
 triggers. We will explain in detail these architectures in the next
 section.
 
+% Moved here to make it go to the top of page 3
+\begin{figure*}[t!bp]
+\includegraphics[width=0.95\textwidth]{img/kafka.png}
+\caption{Chart showing the general picture of the layers of a
+  serverless architecture, including the messages and services that
+  constitute KafkEO, with labels indicating message
+  routes and the software components used for every part.}
+\label{fig:kafkeo}
+\end{figure*}
+%
 \section{Event based architectures and implementing evolutionary
   algorithms over them}
 \label{sec:methods}
@@ -694,13 +698,13 @@ try to minimize the number of partitions to avoid scaling costs.
 \includegraphics[width=0.266\textwidth]{ppfigdim_f001}&
 \includegraphics[width=0.266\textwidth]{ppfigdim_f006}&
 \includegraphics[width=0.266\textwidth]{ppfigdim_f002}&
-\includegraphics[width=0.266\textwidth]{ppfigdim_f007}\\[-2.1ex]
+\includegraphics[width=0.266\textwidth]{ppfigdim_f007}\\
 \includegraphics[width=0.266\textwidth]{ppfigdim_f003}&
 \includegraphics[width=0.266\textwidth]{ppfigdim_f008}&
 \includegraphics[width=0.266\textwidth]{ppfigdim_f004}&
-\includegraphics[width=0.266\textwidth]{ppfigdim_f009}\\[-2.1ex]
+\includegraphics[width=0.266\textwidth]{ppfigdim_f009}\\
 \includegraphics[width=0.266\textwidth]{ppfigdim_f005}&
-\includegraphics[width=0.266\textwidth]{ppfigdim_f010}\\[-2.1ex]
+\includegraphics[width=0.266\textwidth]{ppfigdim_f010}\\
 \end{tabular}
 \vspace{-3ex}
  \caption{\label{fig:aRTgraphs}
