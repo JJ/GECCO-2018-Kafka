@@ -36,8 +36,6 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 \graphicspath{{\bbobdatapath\algfolder}}
 
-
-
 \newcommand{\DIM}{\ensuremath{\mathrm{DIM}}}
 \newcommand{\aRT}{\ensuremath{\mathrm{aRT}}}
 \newcommand{\FEvals}{\ensuremath{\mathrm{FEvals}}}
@@ -148,7 +146,8 @@ Cloud computing is increasingly becoming the dominant way of running
 % because in general the dominant way is mobile -M
 % but mobile need back-ends. I will try to qualify a bit more this
 % claim.
-the server side of applications nowadays. Besides the convenience of the pay-as-you-go
+the server side of applications nowadays, the same as the browser is
+the standard platform for the client side. . Besides the convenience of the pay-as-you-go
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 The availability of resources only limited by your budget, and in many
@@ -171,20 +170,20 @@ mode.
   among different services. Describing them as {\em native} points
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
-  services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
-  {\em living} only while they are doing some kind of processing. This
+services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
+  {\em living} only while they are doing some kind of processing and
+  not keeping state from one invocation to the next. This
   reactivity, besides allowing massive and independent deployment and
-  scaling, also is more economical than monolithic infrastructure as
+  scaling, is also more economical than monolithic infrastructure as
   a service (IaaS) or platform as a service (PaaS), or even Container
   as a Service (CaaS), which need to be active all the time and are
-  paid by the size and time in order to maintain their state.
-  %% They need to maintain their state?
-  %% Some, for instance containers or even virtual machines can be
-  %% created and destroyed on demand BUT AT A HIGHER COST
-  %% special scripts, time etc.
-  %% We should focus more on STATEFULL vs STATELESS than ACTIVE vs
-  %% INACTIVE
-  % Please feel free to add - JJ
+  paid by the size and time in order to maintain their state. At any
+  rate, while the ultra-fast activation time is one of the main
+  selling point of Functions as a Service, from our point of view
+  their most interesting feature is the fact that they provide
+  stateless processing, and any algorithm must be adapted to that fact
+  and turned, at least in part, into a series of stateless steps that
+  work on a data stream.
 
   It is also taken to an atomic extreme
   with the so-called serverless architectures \cite{Varghese2018849},
