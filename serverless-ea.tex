@@ -326,7 +326,7 @@ problems and the extension of cloud deployment and services had made
 this kind of architectures decline in popularity
 \cite{Varghese2018849}.
 
-In general, SoAs tried to achieve functional equivalence with parallel
+In general, frameworks based in SoA tried to achieve functional equivalence with parallel
 or sequential versions of EAs. There is the same tension between
 functional equivalence and new
 design in new, cloud based approaches to evolutionary
@@ -342,6 +342,14 @@ obtaining good speedups; in this last case, it uses a problem-specific
 way of distributing tasks, without resourcing to a change of the
 evolutionary algorithm itself.
 
+% Moved here to make it go to the top of page 3
+\begin{figure*}[t!bp]
+\includegraphics[width=0.95\textwidth]{img/kafka.png}
+\caption{Chart showing the general picture of KafkEO, with message
+  routes and the software components used for every part.}
+\label{fig:kafkeo}
+\end{figure*}
+%
 Besides, there are new computation models for evolutionary algorithms
 that are not functionally equivalent to a canonical EA, but have
 proved to work well in these new environments. Pool based EAs,
@@ -352,14 +360,7 @@ frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
 able to accommodate all kinds of ephemeral and heterogeneous
 resources. 
 
-% Moved here to make it go to the top of page 3
-\begin{figure*}[t!bp]
-\includegraphics[width=0.95\textwidth]{img/kafka.png}
-\caption{This chart shows the general picture of KafkEO, with message
-  routes and the software components used for every part.}
-\label{fig:kafkeo}
-\end{figure*}
-%
+
 In the serverless, event based types of architectures we are going to
 be targeting in this paper, there has been so far no work that we know
 of. Similar setups including microservices have been employed by Salza et
