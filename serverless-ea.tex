@@ -148,7 +148,7 @@ programming the cloud means that monolithic applications, that is,
 applications built on a single stack of services that communicate by
 layers, are no longer the best or most efficient architectural design
 for scientific workflows and implementation of algorithms. Cloud
-architectures favour asyhchronous communication over heterogeneous
+architectures favour asynchronous communication over heterogeneous
 resources, and shifting from a monolithic n-tier and mostly sequential
 to an asynchronously parallel architecture will imply also important
 reformulation in the algorithms to take full advantage of this new
@@ -164,7 +164,7 @@ mode.
   services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some input and
   {\em living} only while they are doing some kind of processing. This
   reactivity, besides allowing massive and independent deployment and
-  scaling, also is more economical than monolithic infraestructure as
+  scaling, also is more economical than monolithic infrastructure as
   a service (IaaS) or platform as a service (PaaS), or even Container
   as a Service (CaaS), which need to be active all the time and are
   paid by the size and time in order to maintain their state.
@@ -180,14 +180,14 @@ mode.
   with the so-called serverless architectures \cite{Varghese2018849},
   which reduce the need to deploy code by the user or vendor to single, stateless
   functions, that get activated via {\em rules}, {\em triggers} or
-  explicitly, reacting to events comusmed from
+  explicitly, reacting to events consumed from
   a message queue or bus that
   % generally reacting to events from a message queue or bus that
   % what is generated? rules are triggered and triggers fire in
   % response to events
   % Please change it to whatever you think it's the best - JJ
   is the backbone of the application. The first commercial
-  implementation of this kind of architeture was released by Amazon
+  implementation of this kind of architecture was released by Amazon
   with its Lambda product, to be followed closely by releases by Azure
   (Microsoft) and Google and an open source implementation, OpenWhisk,
   released by IBM \cite{Baldini2016287}.
@@ -195,7 +195,7 @@ mode.
 There is usually no direct translation of most algorithms to this
 architecture. This is specially true in evolutionary algorithms, who
 rely on state, in the shape of a population, to perform their search
-in the space of solutions. It is relatively straighforward to convert
+in the space of solutions. It is relatively straightforward to convert
 an evolutionary algorithm to a stateless version by simply making a
 {\sf generation} function $g$ that takes a population as a function
 and returns another population. A simple serverless GA would then be
@@ -204,7 +204,7 @@ one or several generations in a function, returning the result to the
 message hub and thus triggering a new action. This would be
 functionally equivalent to a traditional, serial evolutionary
 algorithm, and might be cheaper than a XaaS (where X can be P as in
-platform, I as in infraestructure, C as in container or even DB, since
+platform, I as in infrastructure, C as in container or even DB, since
 whole systems can be implemented using a database engine as a server framework) implementation since it
 would eschew some overhead. However, it would incur also in some
 overhead by reading and writing to the message queue and, since it
@@ -217,7 +217,7 @@ design objective is to leverage the scaling capabilities of a
 serverless framework, as well as create a system that can be deployed
 on different architectures by using free software. Our intention has
 also been to create an algorithm that is functionally equivalent to an asynchronous
-parallel, island-based, EA, which can use paralellism and at the same
+parallel, island-based, EA, which can use parallelism and at the same
 time reproduce mechanisms that are akin to migration.
 
 %%% Maybe a little more about the why Island?
@@ -340,7 +340,7 @@ proved to work well in these new environments. Pool based EAs,
 be tapped to retrieve single individuals or pools of them and return
 evaluated or evolved sub-populations, have been used for new
 frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
-able to accomodate all kinds of ephemeral and heterogeneous
+able to accommodate all kinds of ephemeral and heterogeneous
 resources. 
 
 % Moved here to make it go to the top of page 3
@@ -439,7 +439,7 @@ object, which is then sent to  the second action {\em Message Produce}
  the evolved population and a series of metadata such as a flag that indicates
 whether the solution has been found and the best individual, and information 
 about each iteration. With this metadata a posterior analysis of the experiment
-can be achieved or simply generating the files used by the BOBB Post-processing scripts. 
+can be achieved or simply generating the files used by the BBOB Post-processing scripts. 
 
 This queue is polled by a service outside the serverless framework,
 {\sf Population-Controller}. This service needs to be stateful, since
@@ -507,7 +507,7 @@ released in GitHub under the GPL license.
 
 \section{Experiments and results}
 \label{sec:res}
-In this section we compare the performance of KafkEO against an implemtation of 
+In this section we compare the performance of KafkEO against an implementation of 
 the EvoSpace \cite{GValdez2015} pool-based architecture, using the first five
 functions of the Noiseless BBOB testbed \cite{hansen2016coco}, which are real-parameter, single-objective, separable functions, namely: \begin{itemize}
 \item Sphere, 
@@ -530,7 +530,7 @@ DEAP \cite{fortin2012deap} for the GA service function. The code is in the
 following GitHub repository: \url{https://hidden.com}. Before each
 experiment, a script initializes the population on the server, creating the
 number of individuals specified by the {\em Pool Size} parameter, this
-size depends on the dimension of the problem according to the BOBB testbed. 
+size depends on the dimension of the problem according to the BBOB testbed. 
 When starting each EvoWorker, the following parameters are used: first, the
 {\em Sample Size} indicating the number of individuals the worker would take
 from the server on each interaction, then the {\em Iterations per Sample} 
@@ -638,7 +638,7 @@ the {\em partitions}, that is, the hosted messaging service
 itself. The amount paid for the messages in the Bluemix platform
 totals less than one dollar; messages are paid by the hundreds of
 thousands delivered, and are actually not the most expensive part of the
-implementaiton of the algorithm.
+implementation of the algorithm.
 % The messages total less than one dollar. Please explain more - M
 % The sending? space? is for message delivered?
 % I guess so. There were a few hundred thousands delivered. - JJ
@@ -697,7 +697,7 @@ being in the baseline performance of the proof of concept.
 
 The results obtained show that the basic Genetic Algorithm implemented
 in KafkEO does not perform
-very well against the testbed, specially when compared agains other nature 
+very well against the testbed, specially when compared against other nature 
 inspired algorithms like PSO or other hybrid approaches \cite{hansen2010bbob}.
 However, both implementations, shown side by side, reach similar results with the same 
 effort; and the results in this case have been obtained with less
@@ -722,13 +722,13 @@ work.
 
 This paper is intended to introduce a simple proof of concept of a
 serverless implementation of an evolutionary algorithm. The main
-problem with this algorithm, shared by many otheres, is to turn
+problem with this algorithm, shared by many others, is to turn
 something that has state (in the form of loop variables or anything
-else) into a stateless system. In this inial proof of concept we have
+else) into a stateless system. In this initial proof of concept we have
 opted to create a stateful {\em mixer} outside the serverless (and
 thus stateless) platform to be able to perform {\em
-  migration} and mixing among populations. A straighforward first step
-would be to paralellize this service so that it can respond faster to
+  migration} and mixing among populations. A straightforward first step
+would be to parallelize this service so that it can respond faster to
 incoming evolved populations; however, this scaling up should be done
 by hand and a second step will be to make the architecture totally
 serverless by using functions that perform this mixing in a stateless
@@ -751,7 +751,7 @@ future.
 Other changes will go in the direction of testing the performance of
 the system and computing the cost, so that we can increase the former
 without increasing the latter. Since there is room for increasing
-paralellism, we will try different ways of obtaining better
+parallelism, we will try different ways of obtaining better
 algorithmic results by making a parameter sensitivity analysis,
 including population size, length of evolution runs, and other
 algorithmic parameters.
