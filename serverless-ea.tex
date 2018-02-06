@@ -79,7 +79,7 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 
 \begin{abstract}
-  Cloud native applications add a layer of abstraction to the
+   Cloud native applications add a layer of abstraction to the
 underlying distributed computing system, defining an high-level,
 self-scaling and self-managed architecture of different microservices
 linked by a messaging bus. Creating new algorithms that tap this
@@ -91,23 +91,10 @@ algorithms and other population-based metaheuristics by using
 micro-populations and stateless services as the main building
 blocks; KafkEO is an attempt to map the traditional evolutionary
 algorithm to this new cloud-native format. As far as we know, this is the first
-architecture of this kind that has been published and tested. 
-KafkEO is free software and is also vendor-independent, using
-open source tools for the implementation: OpenWhisk is the serverless
-framework used and Kafka, the messaging hub. In this paper a proof of
-concept of KafkEO is presented and evaluated; the experiments show that resources are
-used efficiently and that the cost to the cloud user is more
-competitive, resulting in savings when compared against other cloud
-implementations. The impact on the algorithm of the design around
-cloud native and asynchronous system is evaluated by comparing it on
+architecture of this kind that has been published and tested, and is free software and vendor-independent, based on OpenWhisk and Kafka. This paper presents a proof of concept, examines its cost, and tests the impact on the algorithm of the design around
+cloud native and asynchronous system by comparing it on
 the well known BBOB benchmarks with other pool-based architectures,
-with which it has got great functional resemblance. Initial results
-show that the results with an initial, barely tuned evolutionary
-algorithm are quite competitive with other similar architectures,
-although it will have to be fine-tuned to reach higher posts in the
-BBOB benchmarks. 
-%We also perform an initial analysis of implementation
-%parameters that show their influence in performance.
+with which it has got great functional resemblance. Kafkeo results are quite competitive with  similar architectures.
 \end{abstract}
 
 \begin{CCSXML}
@@ -205,6 +192,16 @@ services, in fact {\em microservices} \cite{microservices}, which in many cases 
   with its Lambda product, to be followed closely by releases by Azure
   (Microsoft) and Google and an open source implementation, OpenWhisk,
   released by IBM \cite{Baldini2016287}.
+
+These architectures are {\em event-based} in the sense that program
+flow is governed by events, which in this case are going to be simply
+messages received by MessageHub. These {\em events} trigger actions,
+and actions create new message/events which start the circuit all over
+again. This is not the only mode of action in general serverless
+architectures; however, since they define a temporal axis and make new
+actions depend on the result of other actions, is the one that we are
+going to choose in this paper to implement a stateless version of an
+evolutionary algorithm. 
 
 There is usually no direct translation of most algorithms to this
 architecture. This is specially true in evolutionary algorithms, who
