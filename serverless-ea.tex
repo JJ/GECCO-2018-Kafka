@@ -454,7 +454,7 @@ can be achieved or simply generating the files used by the BBOB Post-processing 
 This queue is polled by a service outside the serverless framework,
 {\sf Population-Controller}. This service needs to be stateful, since
 it needs to wait until several populations are ready to mix them (in
-step \#9) to produce a new population, that is the result of selection
+step \#9 in Figure \ref{fig:kafkeo2}) to produce a new population, that is the result of selection
 and crossover between several populations coming from the {\sf
   evolved-population-objects} message queue. Eventually, these mixed
 populations are returned to the initial queue to return to the {\em
@@ -630,8 +630,13 @@ chosen as the usual, and default, setup in any experiment, without
 making any attempt to adapt it to this particular flavor of the
 algorithm. In particular, the tournament size injects a high selective
 pressure which is known to decrease diversity. The system also allows 
-to set different parameters for every instance, in this proof of concept 
-only to parameters were randomly set,{\em Mutation Probability} uniformly  random in the $[.1,.6]$ range, and {\em Crossover Probability} random on $[.8,1]$.
+to set different parameters for every instance; in this proof of concept 
+only two parameters were randomly set, {\em Mutation Probability}
+uniformly random in the $[.1,.6]$ range, and {\em Crossover
+  Probability} random on $[.8,1]$. This is one deviation from the
+standard evolutionary algorithm, but has been proved in the past to
+provide good results without needing to fine tune different
+parameters \cite{tanabe2013evaluation}. 
 
 %Besides, despite the
 %system allowing for different parameters for every instance, even
@@ -640,6 +645,7 @@ only to parameters were randomly set,{\em Mutation Probability} uniformly  rando
 %stage of the algorithm. 
 % Yes we did, Mutation Probability random in the range: [.1,.6] and 
 % Crossover Probability& [.8,1]  \\ \hline
+% I didn't know that... Maybe we should have left it fixed - JJ
 
 The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
@@ -649,9 +655,6 @@ itself. The amount paid for the messages in the BlueMix platform
 totals less than one dollar; messages are paid by the hundreds of
 thousands delivered, and are actually not the most expensive part of the
 implementation of the algorithm.
-% The messages total less than one dollar. Please explain more - M
-% The sending? space? is for message delivered?
-% I guess so. There were a few hundred thousands delivered. - JJ
 Partitions are
 essential for a high throughput; a messaging queue will be able to
 process as many messages as the partitions are able to get through in
@@ -713,7 +716,7 @@ However, both implementations, shown side by side, reach similar results with th
 effort; and the results in this case have been obtained with less
 parameters, with out the need to specify an initial pool size and  
 % parameter, simply the number of initial populations, and no tweaking
-with out tuning the evolutionary algorithm parameters.
+without tuning the evolutionary algorithm parameters.
 
 This is a problem that pool-based algorithms have: we need to
 specify the initial number of individuals to place in the pool and the
@@ -727,8 +730,6 @@ work.
 
 \section{Conclusions}
 \label{sec:con}
-
-% TO DO ------------------------------------------------
 
 This paper is intended to introduce a simple proof of concept of a
 serverless implementation of an evolutionary algorithm. The main
