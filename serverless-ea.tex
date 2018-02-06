@@ -82,23 +82,32 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 \begin{abstract}
   Cloud native applications add a layer of abstraction to the
-underlying distributed computing system, creating an abstract,
-self-scaling and self-managed architecture of different Microservices
+underlying distributed computing system, defining an high-level,
+self-scaling and self-managed architecture of different microservices
 linked by a messaging bus. Creating new algorithms that tap this
 architectural patterns and at the same time they employ distributed
 resources efficiently is a challenge we will be taking up in this
-paper, that is why in this paper we propose KafkEO, a cloud native
-framework that allows different implementations of evolutionary
+paper. We introduce KafkEO, a cloud native evolutionary algorithms
+framework that is prepared to work with different implementations of evolutionary
 algorithms and other population-based metaheuristics by using
 micro-populations and stateless services as the main building
-blocks. We introduce an open source implementation that uses OpenWhisk
-as a serverless framework and Kafka as messaging hub. In this proof of
-concept, we map the traditional evolutionary algorithm to this new
-cloud-native format.  As far as we know, this is the first
-architecture of this kind; the experiments show that resources are
+blocks; KafkEO is an attempt to map the traditional evolutionary
+algorithm to this new cloud-native format. As far as we know, this is the first
+architecture of this kind that has been published and tested. 
+KafkEO is free software and is also vendor-independent, using
+open source tools for the implementation: OpenWhisk is the serverless
+framework used and Kafka, the messaging hub. In this paper a proof of
+concept of KafkEO is presented and evaluatef; the experiments show that resources are
 used efficiently and that the cost to the cloud user is more
 competitive, resulting in savings when compared against other cloud
-implementations.
+implementations. The impact on the algorithm of the design around
+cloud native and asynchronous system is evaluated by comparing it on
+the well known BBOB benchmarks with other pool-based architectures,
+with which it has got great functional resemblance. Initial results
+show that the results with an initial, barely tuned evolutionary
+algorithm are quite competitive with other similar architectures,
+although it will have to be fine-tuned to reach higher posts in the
+BBOB benchmarks. 
 %We also perform an initial analysis of implementation
 %parameters that show their influence in performance.
 \end{abstract}
