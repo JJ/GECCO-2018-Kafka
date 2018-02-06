@@ -80,10 +80,10 @@ Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
 
 \begin{abstract}
    Cloud native applications add a layer of abstraction to the
-underlying distributed computing system, defining an high-level,
+underlying distributed computing system, defining a high-level,
 self-scaling and self-managed architecture of different microservices
-linked by a messaging bus. Creating new algorithms that tap this
-architectural patterns and at the same time they employ distributed
+linked by a messaging bus. Creating new algorithms that tap these
+architectural patterns and at the same time employ distributed
 resources efficiently is a challenge we will be taking up in this
 paper. We introduce KafkEO, a cloud native evolutionary algorithms
 framework that is prepared to work with different implementations of evolutionary
@@ -94,7 +94,7 @@ algorithm to this new cloud-native format. As far as we know, this is the first
 architecture of this kind that has been published and tested, and is free software and vendor-independent, based on OpenWhisk and Kafka. This paper presents a proof of concept, examines its cost, and tests the impact on the algorithm of the design around
 cloud native and asynchronous system by comparing it on
 the well known BBOB benchmarks with other pool-based architectures,
-with which it has got great functional resemblance. Kafkeo results are quite competitive with  similar architectures.
+with which it has great functional resemblance. Kafkeo results are quite competitive with similar architectures.
 \end{abstract}
 
 \begin{CCSXML}
@@ -201,7 +201,7 @@ again. This is not the only mode of action in general serverless
 architectures; however, since they define a temporal axis and make new
 actions depend on the result of other actions, is the one that we are
 going to choose in this paper to implement a stateless version of an
-evolutionary algorithm. 
+evolutionary algorithm.
 
 There is usually no direct translation of most algorithms to this
 architecture. This is specially true in evolutionary algorithms, who
@@ -233,7 +233,7 @@ time reproduce mechanisms that are akin to migration. The island based
 paradigm is relatively standard in distributed applications, but in
 our case we have been used it since it allows for better parallelism
 and thus performance, at the same time it makes keeping diversity
-easier while needing less free parameters to tune. 
+easier while needing less free parameters to tune.
 
 %%% Maybe a little more about the why Island?
 %%% Not only better performance in time, but also, more diverstity and less
@@ -283,7 +283,7 @@ as new technologies became commercially available, or even
 before. There were very early implementations of evolutionary
 algorithms on transputers \cite{voigt1990modelling}, the world wide
 % transputers, had to google that
-% you're too young, man - JJ 
+% you're too young, man - JJ
 web \cite{chong:1999:jDGPi} or the first generation of cloud
 services
 \cite{DBLP:journals/corr/abs-1105-6205,de2017parallel,salza2017ccube}. Evolutionary
@@ -357,7 +357,7 @@ be tapped to retrieve single individuals or pools of them and return
 evaluated or evolved sub-populations, have been used for new
 frameworks such as EvoSpace \cite{García-Valdez2015}, and proved to be
 able to accommodate all kinds of ephemeral and heterogeneous
-resources. 
+resources.
 
 In the serverless, event based types of architectures we are going to
 be targeting in this paper, there has been so far no work that we know
@@ -430,7 +430,7 @@ this is hosted in a cloud provider, as is the case, it is a hosted
 service that will be charged according to a particular cost
 structure. In the case of MessageHub, partitions are the main part of
 the cost structure, with messages having a relatively small impact on
-total cost. 
+total cost.
 
 The evolutionary algorithm mapped over this architecture, which we
 call KafkEO, is represented in Figure \ref{fig:kafkeo2}. The main
@@ -447,17 +447,17 @@ paper. Any number of actions can be triggered in parallel, and new
 actions can be triggered while others are still working; this phase is
 then self-scaling and parallel by design.
 
-Population objects are extracted from the message and for each a call to 
-an {\em evolve} process is triggered in parallel. The {\em evolve} process 
-consists of two {\em actions} (5), first, the {\em GA Service} function that 
-runs for a GA for a certain number of generations, producing a new evolved 
+Population objects are extracted from the message and for each a call to
+an {\em evolve} process is triggered in parallel. The {\em evolve} process
+consists of two {\em actions} (5), first, the {\em GA Service} function that
+runs for a GA for a certain number of generations, producing a new evolved
 object, which is then sent to  the second action {\em Message Produce}
- responsible of sending the object to another different message queue, 
- {\sf evolved-population-objects}.  The new Population object (6) includes 
+ responsible of sending the object to another different message queue,
+ {\sf evolved-population-objects}.  The new Population object (6) includes
  the evolved population and a series of metadata such as a flag that indicates
-whether the solution has been found and the best individual, and information 
+whether the solution has been found and the best individual, and information
 about each iteration. With this metadata a posterior analysis of the experiment
-can be achieved or simply generating the files used by the BBOB Post-processing scripts. 
+can be achieved or simply generating the files used by the BBOB Post-processing scripts.
 
 This queue is polled by a service outside the serverless framework,
 {\sf Population-Controller}. This service needs to be stateful, since
@@ -466,14 +466,14 @@ step \#9 in Figure \ref{fig:kafkeo2}) to produce a new population, that is the r
 and crossover between several populations coming from the {\sf
   evolved-population-objects} message queue. Eventually, these mixed
 populations are returned to the initial queue to return to the {\em
-  serverless} part of the application. Another task of the {\sf Population-Controller} is to start and stop the experiment. The service must 
-  keep the state of the number of Population objects received, then after 
-  a certain number is reached, the controller stops sending new messages to the 
+  serverless} part of the application. Another task of the {\sf Population-Controller} is to start and stop the experiment. The service must
+  keep the state of the number of Population objects received, then after
+  a certain number is reached, the controller stops sending new messages to the
   {\sf new-populations} {\em topic}. It is important to note, that because of
-  the asynchronous nature of the system, several populations could still 
-  arrived after the current experiment is over. The controller must only 
-  accept messages belonging to the current process.   
-  
+  the asynchronous nature of the system, several populations could still
+  arrived after the current experiment is over. The controller must only
+  accept messages belonging to the current process.
+
 % consists essentially on a single function, a single topic
 % in the MessageHub and a single kind of message, which includes a whole
 % population along with metadata. The function performs a series of
@@ -486,7 +486,7 @@ populations are returned to the initial queue to return to the {\em
 
 This would be functionally equivalent to a sequential algorithm except
 for the fact that, between two calls to the {\sf get-new-populations}
-function, several 
+function, several
 population-messages have been received in the message queue. In fact,
 every call the {\sf Crossover-migrate} function receives several populations, which
 have to be merged to generate several new populations. This {\em merging} step
@@ -516,7 +516,7 @@ to add more instances of this {\sf Population-controller}. These
 instances will act in parallel, processing the message queue at
 different offsets and contributing to population diversity. This will
 eventually have its influence in the results of the algorithm, so it
-is better left as future work. 
+is better left as future work.
 
 Since we are running just a few functions, the amount of code of KafkEO
 is quite small compared with other implementations. We use DEAP for
@@ -525,43 +525,43 @@ released in GitHub under the GPL license.
 
 \section{Experiments and results}
 \label{sec:res}
-In this section we compare the performance of KafkEO against an implementation of 
+In this section we compare the performance of KafkEO against an implementation of
 the EvoSpace \cite{GValdez2015} pool-based architecture, using the first five
 functions of the Noiseless BBOB testbed \cite{hansen2016coco}, which are real-parameter, single-objective, separable functions, namely: \begin{itemize}
-\item Sphere, 
-\item ellipsoidal, which is highly multimodal 
-\item Rastrigin, 
+\item Sphere,
+\item ellipsoidal, which is highly multimodal
+\item Rastrigin,
 \item Buche-Rastrigin,
-\item and the purely lineal function called linear 
+\item and the purely lineal function called linear
   slope.
 \end{itemize}
 
-  It is expected that the two algorithms achieve similar results as 
-they are functionally equivalent. The EvoSpace implementation follows the 
+  It is expected that the two algorithms achieve similar results as
+they are functionally equivalent. The EvoSpace implementation follows the
 basic EvoSpace model in which EvoWorkers asynchronously interact with the
 population pool by taking samples of the population to perform a standard
 evolutionary search on the samples, to then return newly evolved solutions back
-to the pool.  
+to the pool.
 
-EvoWorkers were implemented in Python with the same code as KafkEO and using 
+EvoWorkers were implemented in Python with the same code as KafkEO and using
 DEAP \cite{fortin2012deap} for the GA service function. The code is in the
 following GitHub repository: \url{https://hidden.com}. Before each
 experiment, a script initializes the population on the server, creating the
 number of individuals specified by the {\em Pool Size} parameter, this
-size depends on the dimension of the problem according to the BBOB testbed. 
+size depends on the dimension of the problem according to the BBOB testbed.
 When starting each EvoWorker, the following parameters are used: first, the
 {\em Sample Size} indicating the number of individuals the worker would take
-from the server on each interaction, then the {\em Iterations per Sample} 
+from the server on each interaction, then the {\em Iterations per Sample}
 parameter specifies the number of generations or iterations the local algorithm
 will run before sending back to the server the resulting population. Finally,
-the number of times an  EvoWorker will take, evolve and return a sample, is 
-indicated by the {\em Samples per Worker} parameter. The number of EvoWorkers instantiated for the experiment is given by the {\em GA Workers} parameter.  The EvoSpace parameters 
+the number of times an  EvoWorker will take, evolve and return a sample, is
+indicated by the {\em Samples per Worker} parameter. The number of EvoWorkers instantiated for the experiment is given by the {\em GA Workers} parameter.  The EvoSpace parameters
 are shown in Table \ref{tab:params:evoworkers}.
- These parameters are set for  
+ These parameters are set for
 each dimension and they indicate the effort in number of evaluations. In both
- experiments the maximum number of evaluations is $10^5 \cdot D$. For instance, 
+ experiments the maximum number of evaluations is $10^5 \cdot D$. For instance,
  for $D = 2$, the maximum number of evaluations is $200,000$ which is obtained by multiplying
-  the parameters int the first column of Table \ref{tab:params:evoworkers}: $50 \cdot 100 \cdot 20 \cdot 2$. Also both algorithms limit the search space to $[-5,5]^D$. 
+  the parameters int the first column of Table \ref{tab:params:evoworkers}: $50 \cdot 100 \cdot 20 \cdot 2$. Also both algorithms limit the search space to $[-5,5]^D$.
 
   % ALL THIS IS REPEATED TWO PARAGRAPHS ABOVE - Mario
   % no need for it, then - JJ
@@ -573,7 +573,7 @@ each dimension and they indicate the effort in number of evaluations. In both
 %in this algorithm are shown in Table \ref{tab:params:evoworkers}. As
 %the difficulty of the problem increases, this is reflected in the
 %table parameters by increasing the sample size and the number of
-%workers performing at the same time. 
+%workers performing at the same time.
 % Maybe you could explain this algorithm a little bit more.
 % Are we using all these combinations? - JJ
 %% Got mixed up, but it was explained a few paragraphs before.
@@ -583,7 +583,7 @@ each dimension and they indicate the effort in number of evaluations. In both
     benchmark functions, sample size, which is the size of the block
     of individuals taken and dropped back in the pool, as well as the
     number of actual workers used and samples per worker. }
-  \label{tab:params:evoworkers} 
+  \label{tab:params:evoworkers}
   \centering
   \small
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -607,16 +607,16 @@ dimension, and thus difficulty, increases; the population size is also
 increased, so that initial diversity is higher. Please note that every
 population is generated randomly, so that the population size would
 have to be multiplied by the number of initial messages to get to the
-initial population involved in the experiment. The effort is limited by the 
-maximum number of messages consumed by the {\em Population-Controller} from 
- the  {\sf evolved-population-objects} message queue. The maximum number is 
-  calculated by multiplying the {\em  Maximum Iterations} and {\em Initial 
+initial population involved in the experiment. The effort is limited by the
+maximum number of messages consumed by the {\em Population-Controller} from
+ the  {\sf evolved-population-objects} message queue. The maximum number is
+  calculated by multiplying the {\em  Maximum Iterations} and {\em Initial
  Messages} parameters. Again for a $10^5 \cdot D$ maximum number of evaluations.
 
 \begin{table}
   \small
   \caption{KafkEO parameters for the BBOB benchmark. Dimensions are the independent variable, the rest of the parameters are changed to adapt to the increasing difficulty. }
-  \label{tab:params:kafka} 
+  \label{tab:params:kafka}
   \centering
   \small
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -631,27 +631,27 @@ maximum number of messages consumed by the {\em Population-Controller} from
 
 The evolutionary algorithm implemented in KafkEO used the same code,
 also delegating the evolutionary operations to the standard DEAP
-library, written in 
+library, written in
 Python \cite{fortin2012deap}. The parameters for the evolutionary algorithm were fixed and
 are shown in Table \ref{tab:GAparams}. These parameters have been
 chosen as the usual, and default, setup in any experiment, without
 making any attempt to adapt it to this particular flavor of the
 algorithm. In particular, the tournament size injects a high selective
-pressure which is known to decrease diversity. The system also allows 
-to set different parameters for every instance; in this proof of concept 
+pressure which is known to decrease diversity. The system also allows
+to set different parameters for every instance; in this proof of concept
 only two parameters were randomly set, {\em Mutation Probability}
 uniformly random in the $[.1,.6]$ range, and {\em Crossover
   Probability} random on $[.8,1]$. This is one deviation from the
 standard evolutionary algorithm, but has been proved in the past to
 provide good results without needing to fine tune different
-parameters \cite{tanabe2013evaluation}. 
+parameters \cite{tanabe2013evaluation}.
 
 %Besides, despite the
 %system allowing for different parameters for every instance, even
 %working in parallel, or random parameters for every instantiation, we
 %have made no attempt to use this feature in this proof of concept
-%stage of the algorithm. 
-% Yes we did, Mutation Probability random in the range: [.1,.6] and 
+%stage of the algorithm.
+% Yes we did, Mutation Probability random in the range: [.1,.6] and
 % Crossover Probability& [.8,1]  \\ \hline
 % I didn't know that... Maybe we should have left it fixed - JJ
 
@@ -670,13 +670,13 @@ parallel; this means that cost will scale with the number of messages
 in a complex way, not simply linearly, and design decisions will have
 to be taken. The baseline is that the best option is to maximize the
 number of messages that can be borne by a particular partition, and
-try to minimize the number of partitions to avoid scaling costs. 
+try to minimize the number of partitions to avoid scaling costs.
 
 %
 \begin{table}
   \small
   \caption{ DEAP GA EvoWorker Parameters }
-  \label{tab:GAparams} 
+  \label{tab:GAparams}
   \centering
   \small
   \begin{tabular}{|l|c|}
@@ -718,11 +718,11 @@ being in the baseline performance of the proof of concept.
 
 The results obtained show that the basic Genetic Algorithm implemented
 in KafkEO does not perform
-very well against the testbed, specially when compared against other nature 
+very well against the testbed, specially when compared against other nature
 inspired algorithms like PSO or other hybrid approaches \cite{hansen2010bbob}.
-However, both implementations, shown side by side, reach similar results with the same 
+However, both implementations, shown side by side, reach similar results with the same
 effort; and the results in this case have been obtained with less
-parameters, with out the need to specify an initial pool size and  
+parameters, with out the need to specify an initial pool size and
 % parameter, simply the number of initial populations, and no tweaking
 without tuning the evolutionary algorithm parameters.
 
@@ -774,7 +774,7 @@ scaling would solve the problem. This kind of scaling also indicates
 that the stateful part, run in a desktop, has not for this problem
 size become a bottleneck. Even so, we consider that it is essential to
 create an algorithm architecture that will be fully serverless and,
-thus, stateless. 
+thus, stateless.
 
 Other changes will go in the direction of testing the performance of
 the system and computing the cost, so that we can increase the former
@@ -793,7 +793,7 @@ parameters to set at the start.
 On the implementation side, we will work on the automatic deployment
 of this architecture to any free or vendor serverless implementation,
 including maybe abstraction layers such as the {\tt serverless}
-library. 
+library.
 
 
 
