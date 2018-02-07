@@ -91,10 +91,14 @@ algorithms and other population-based metaheuristics by using
 micro-populations and stateless services as the main building
 blocks; KafkEO is an attempt to map the traditional evolutionary
 algorithm to this new cloud-native format. As far as we know, this is the first
-architecture of this kind that has been published and tested, and is free software and vendor-independent, based on OpenWhisk and Kafka. This paper presents a proof of concept, examines its cost, and tests the impact on the algorithm of the design around
+architecture of this kind that has been published and tested, and is free 
+software and vendor-independent, based on OpenWhisk and Kafka. 
+This paper presents a proof of concept, examines its cost, and tests 
+the impact on the algorithm of the design around
 cloud native and asynchronous system by comparing it on
 the well known BBOB benchmarks with other pool-based architectures,
-with which it has remarkable functional resemblance. Kafkeo results are quite competitive with similar architectures.
+with which it has remarkable functional resemblance. KafkEO results are 
+quite competitive with similar architectures.
 \end{abstract}
 
 \begin{CCSXML}
@@ -141,7 +145,7 @@ the standard platform for the client side. Besides the convenience of the pay-as
 model, it also offers a way of describing the infrastructure as part
 of the code, so that it is much easier to reproduce results.
 The availability of resources only limited by your budget, and in many
-cases free, as well as the inherent reproducibility of cloud
+cases for free, as well as the inherent reproducibility of cloud
 deployments, has been a boon for scientific computing. However,
 programming the cloud means that monolithic applications, that is,
 applications built on a single stack of services that communicate by
@@ -160,7 +164,8 @@ mode.
   among different services. Describing them as {\em native} points
   to their new architecture, which departs from a monolithic or even
   distributed paradigm to become a loosely connected collection of
-services, in fact {\em microservices} \cite{microservices}, which in many cases are stateless, reacting to some event and
+services, in fact {\em microservices} \cite{microservices}, which in
+ many cases are stateless, reacting to some event and
   {\em living} only while they are doing some kind of processing and
   not keeping state from one invocation to the next.
 
@@ -181,7 +186,7 @@ Reactive systems not only allow massive scaling and independent deployment they
 are also more economical than other monolithic options.  Platform as a service
 (PaaS) or even Container as a Service (CaaS) approaches need to be running all
 the time in order to maintain their state, so they are paid for their size and
-and aslo for time they remain active.
+and also for time they remain active.
 %At any
 %  rate, while the ultra-fast activation time is one of the main
 %  selling points of Functions as a Service, from our point of view
@@ -194,7 +199,7 @@ and aslo for time they remain active.
 At any rate, while one of the main selling points of Functions as a Service is
 their ultra-fast activation time, from our point of view their most interesting
 feature is the fact that they provide stateless processing. An important caveat
-of stateless processing is that any algorithm must be adapted to this fact and
+of stateless processing is that algorithms must be adapted to this fact and
 turned, at least in part, into a series of stateless steps that work on a data
 stream.
 
@@ -218,7 +223,7 @@ stream.
 These architectures are {\em event-based} in the sense that program
 flow is governed by events, which in this case are going to be simply
 messages received by the MessageHub service. These {\em events} trigger actions,
-and actions create new message/events which start the circuit all over
+and actions create new message/events which start the loop all over
 again. This is not the only mode of action in general serverless
 architectures; however, since they define a temporal axis and make new
 actions depend on the result of other actions, is the one that we are
@@ -238,7 +243,8 @@ message hub and thus triggering a new action. This would be
 functionally equivalent to a traditional, serial evolutionary
 algorithm, and might be cheaper than a XaaS (where X can be P as in
 platform, I as in infrastructure, C as in container or even DB, since
-whole systems can be implemented using a database engine as a server framework) implementation since it
+whole systems can be implemented using a database engine as a server framework) 
+implementation since it
 would eschew some overhead. However, it would also incur in some
 overhead by reading and writing to the message queue and, since it
 would be working on a single population, no scaling could be done,
@@ -251,7 +257,9 @@ serverless framework, as well as create a system that can be deployed
 on different platforms by using free software. Our intention has
 also been to create an algorithm that is functionally equivalent to an asynchronous
 parallel, island-based, EA, which can use parallelism and at the same
-time reproduce mechanisms that are akin to migration. The island-based paradigm is relatively standard in distributed EA applications, but in our case, we have been using it since it allows for better parallelism
+time reproduce mechanisms that are akin to migration. The island-based 
+paradigm is relatively standard in distributed EA applications, but in our case, 
+we have been using it since it allows for better parallelism
 and thus performance, at the same time it makes keeping diversity
 easier while needing less free parameters to tune.
 
@@ -418,7 +426,7 @@ has led to systems that are asynchronous and loosely coupled in what
 is generally called a microservice architecture. These microservice
 architectures share the common trait of consisting of several services
 with a single concern, that is, providing a single processing value,
-in many case stateless, and coupled using lightweight protocols such
+in many cases stateless, and coupled using lightweight protocols such
 as REST and messaging buses that carry information from every service
 to the next. In this case, we are going to be using IBM's BlueMix
 service, which includes OpenWhisk as a serverless framework and
@@ -440,8 +448,8 @@ The layers and message flow in the application are shown in Figure
 will focus for the time being in the general picture: a serverless
 architecture using  a messaging service as a backbone, which in this case
 takes the shape of Kafka/MessageHub. These messages are produced and
-consumed by a service, which can also store it in an external database
-for its later use; in general, messaging systems are configured to
+consumed by a service, which can also store them in an external database
+for their later use; in general, messaging systems are configured to
 keep messages only for a certain amount of time, and they disappear
 after that. Messaging queues are organized in {\em topics} and every
 topic uses a series of {\em partitions}, which can be increased for
@@ -449,51 +457,51 @@ bigger throughput; the
 functions, hosted in OpenWhisk, execute {\em actions} triggered by the
 arrival of new messages; these actions also produce new messages that
 go back to the MessageHub to continue with the message loop. If all
-this is hosted in a cloud provider, as is the case, it is a hosted
-service that will be charged according to a particular cost
-structure. In the case of MessageHub, partitions are the main part of
-the cost structure, with messages having a relatively small impact on
-total cost.
+this is hosted in a cloud provider, as it is the case, the MessageHub
+service will be charged according to a particular cost
+structure, with partitions taking the most part of
+the cost, while messages have a relatively small impact.
 
-The evolutionary algorithm mapped over this architecture, which we
-call KafkEO, is represented in Figure \ref{fig:kafkeo2}. The main
+The evolutionary algorithm mapped over this architecture is 
+represented in Figure \ref{fig:kafkeo2}. The main
 design challenge is to try and map an evolutionary algorithm to a
 serverless, and then stateless, architecture. That part is done in
-points 1 through 5 of  \ref{fig:kafkeo2}. The beginning of the
+points 1 through 5 of Figure \ref{fig:kafkeo2}. The beginning of the
 evolution is triggered from outside the serverless framework (1) by
-creating a series of populations, which we pack (2) to a message in the
+creating a series of Population objects, which we pack (2) to a message in the
 {\sf new-populations} {\em topic}. The arrival of a new population
 package sets off the {\sf MessageArrived} trigger (3), that is bound to
 the actions that effectively perform evolution. In this case we
-feature GA and PSO, although only GA has been implemented for this
-paper. Any number of actions can be triggered in parallel, and new
-actions can be triggered while others are still working; this phase is
+feature GA and PSO algorithms, although only GA has been implemented 
+for this paper. Any number of actions can be triggered in parallel by the same message,
+and new actions can be triggered while others are still working; this phase is
 then self-scaling and parallel by design.
 
-Population objects are extracted from the message and for each a call to
-an {\em evolve} process is triggered in parallel. The {\em evolve} process
-consists of two {\em actions} (5), first, the {\em GA Service} function that
-runs for a GA for a certain number of generations, producing a new evolved
-object, which is then sent to  the second action {\em Message Produce}
- responsible of sending the object to another different message queue,
- {\sf evolved-population-objects}.  The new Population object (6) includes
- the evolved population and a series of metadata such as a flag that indicates
-whether the solution has been found and the best individual, and information
-about each iteration. With this metadata a posterior analysis of the experiment
+Population objects are extracted from the message and, for each, a call to
+an {\em evolve} process is executed in parallel. The {\em evolve} process
+consists of two sequential {\em actions} (5), first, the {\em GA Service} function that
+runs a GA for a certain number of generations, producing a new evolved
+object, which is then sent to the second action called {\em Message Produce}
+ responsible of sending the object to the {\sf evolved-population-objects} 
+ message queue.  The new Population object (6) includes
+ the evolved population and also metadata such as a flag indicating
+whether the solution has been found, the best individual, and information
+about each generation. With this metadata a posterior analysis of the experiment
 can be achieved or simply generating the files used by the BBOB Post-processing scripts.
 
-This queue is polled by a service outside the serverless framework,
+This queue is polled by a service outside the serverless framework, called
 {\sf Population-Controller}. This service needs to be stateful, since
-it needs to wait until several populations are ready to mix them (in
+it needs to wait until several populations are ready to then mix them (in
 step \#9 in Figure \ref{fig:kafkeo2}) to produce a new population, that is the result of selection
 and crossover between several populations coming from the {\sf
   evolved-population-objects} message queue. Eventually, these mixed
 populations are returned to the initial queue to return to the {\em
-  serverless} part of the application. Another task of the {\sf Population-Controller} is to start and stop the experiment. The service must
-  keep the state of the number of Population objects received, then after
+  serverless} part of the application. Another task of the 
+  {\sf Population-Controller} is to start and stop the experiment. The service must
+  keep the number of Population objects received, then after
   a certain number is reached, the controller stops sending new messages to the
   {\sf new-populations} {\em topic}. It is important to note, that because of
-  the asynchronous nature of the system, several populations could still
+  the asynchronous nature of the system, several messages could still
   arrived after the current experiment is over. The controller must only
   accept messages belonging to the current process.
 
@@ -550,7 +558,8 @@ released in GitHub under the GPL license.
 \label{sec:res}
 In this section we compare the performance of KafkEO against an implementation of
 the EvoSpace \cite{GValdez2015} pool-based architecture, using the first five
-functions of the Noiseless BBOB testbed \cite{hansen2016coco}, which are real-parameter, single-objective, separable functions, namely: \begin{itemize}
+functions of the Noiseless BBOB testbed \cite{hansen2016coco}, 
+which are real-parameter, single-objective, separable functions, namely: \begin{itemize}
 \item Sphere,
 \item ellipsoidal, which is highly multimodal
 \item Rastrigin,
@@ -575,15 +584,18 @@ size depends on the dimension of the problem according to the BBOB testbed.
 When starting each EvoWorker, the following parameters are used: first, the
 {\em Sample Size} indicating the number of individuals the worker would take
 from the server on each interaction, then the {\em Iterations per Sample}
-parameter specifies the number of generations or iterations the local algorithm
+parameter specifies the number of generations or iterations the worker algorithm
 will run before sending back to the server the resulting population. Finally,
 the number of times an  EvoWorker will take, evolve and return a sample, is
-indicated by the {\em Samples per Worker} parameter. The number of EvoWorkers instantiated for the experiment is given by the {\em GA Workers} parameter.  The EvoSpace parameters
+indicated by the {\em Samples per Worker} parameter.
+ The number of EvoWorkers instantiated for the experiment 
+ is given by the {\em GA Workers} parameter.  The EvoSpace parameters
 are shown in Table \ref{tab:params:evoworkers}.
  These parameters are set for
 each dimension and they indicate the effort in number of evaluations. In both
  experiments the maximum number of evaluations is $10^5 \cdot D$. For instance,
- for $D = 2$, the maximum number of evaluations is $200,000$ which is obtained by multiplying
+ for $D = 2$, the maximum number of evaluations is $200,000$ which is 
+ obtained by multiplying
   the parameters int the first column of Table \ref{tab:params:evoworkers}: $50 \cdot 100 \cdot 20 \cdot 2$. Also both algorithms limit the search space to $[-5,5]^D$.
 
   % ALL THIS IS REPEATED TWO PARAGRAPHS ABOVE - Mario
@@ -638,7 +650,9 @@ maximum number of messages consumed by the {\em Population-Controller} from
 
 \begin{table}
   \small
-  \caption{KafkEO parameters for the BBOB benchmark. Dimensions are the independent variable, the rest of the parameters are changed to adapt to the increasing difficulty. }
+  \caption{KafkEO parameters for the BBOB benchmark. Dimensions are 
+  the independent variable, the rest of the parameters are changed to 
+  adapt to the increasing difficulty. }
   \label{tab:params:kafka}
   \centering
   \small
@@ -660,7 +674,6 @@ are shown in Table \ref{tab:GAparams}. These parameters have been
 chosen as the usual, and default, setup in any experiment, without
 making any attempt to adapt it to this particular flavor of the
 algorithm. In particular, the tournament size injects a high selective
-
 pressure which is known to decrease diversity. The system also allows
 to set different parameters for every instance; in this proof of concept
 only two parameters were randomly set, {\em Mutation Probability}
@@ -681,8 +694,8 @@ parameters \cite{tanabe2013evaluation}.
 
 The experiments using the above described framework were performed
 during the month of January using a paid IBM BlueMix subscription. The
-totality of experiments costed about 12\$. Most of the cost is due to
-the {\em partitions}, that is, the hosted messaging service
+totality of experiments costed about \$12. Most of the cost is due to
+the MessageHub {\em partitions}, that is, the hosted messaging service
 itself. The amount paid for the messages in the BlueMix platform
 totals less than one dollar; messages are paid by the hundreds of
 thousands delivered, and are actually not the most expensive part of the
@@ -751,7 +764,7 @@ parameters, with out the need to specify an initial pool size and
 without tuning the evolutionary algorithm parameters.
 
 This is a problem that pool-based algorithms have: we need to
-specify the initial number of individuals to place in the pool and the
+specify the initial number of individuals to place in the pool and have the
 burden of always keeping a minimum number of individuals in the pool. This
 is not the case in KafkEO, because there is no need to have a
 repository for the population. However, population size and the number
