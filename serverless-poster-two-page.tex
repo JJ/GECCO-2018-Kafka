@@ -6,47 +6,6 @@
 \usepackage{booktabs} % For formal tables
 \usepackage{graphicx}
 \usepackage{rotating}
-\definecolor{Gray}{gray}{0.6}
-
-\setcopyright{rightsretained}
-
-% DOI
-\acmDOI{10.1145/nnnnnnn.nnnnnnn}
-
-% ISBN
-\acmISBN{978-x-xxxx-xxxx-x/YY/MM}
-
-
-%Conference
-\acmConference[GECCO '18]{the Genetic and Evolutionary Computation
-Conference 2018}{July 15--19, 2018}{Kyoto, Japan}
-\acmYear{2018}
-\copyrightyear{2018}
-
-
-\acmArticle{4}
-\acmPrice{15.00}
-
-\newcommand{\bbobdatapath}{ExperimentData/KafkaEvoSpace/}
-\graphicspath{{\ExperimentData}}
-% rungeneric.py writes data into a subfolder of ppdata desired
-\input{\bbobdatapath cocopp_commands.tex} % provide default of algname and algfolder
-\renewcommand{\algfolder}{EvoSpace/}
-\renewcommand{\algname}{EvoSpace}
-
-\graphicspath{{\bbobdatapath\algfolder}}
-
-\newcommand{\DIM}{\ensuremath{\mathrm{DIM}}}
-\newcommand{\aRT}{\ensuremath{\mathrm{aRT}}}
-\newcommand{\FEvals}{\ensuremath{\mathrm{FEvals}}}
-\newcommand{\nruns}{\ensuremath{\mathrm{Nruns}}}
-\newcommand{\Dfb}{\ensuremath{\Delta f_{\mathrm{best}}}}
-\newcommand{\Df}{\ensuremath{\Delta f}}
-\newcommand{\nbFEs}{\ensuremath{\mathrm{\#FEs}}}
-\newcommand{\fopt}{\ensuremath{f_\mathrm{opt}}}
-\newcommand{\ftarget}{\ensuremath{f_\mathrm{t}}}
-\newcommand{\CrE}{\ensuremath{\mathrm{CrE}}}
-\newcommand{\change}[1]{{\color{red} #1}}
 
 
 
@@ -109,6 +68,16 @@ algorithm to this new cloud-native format.
 
 \keywords{Cloud computing, microservices, distributed computing,
   event-based systems, stateless algorithms, functions as a service.}
+
+
+\copyrightyear{2018}
+\acmYear{2018}
+\setcopyright{rightsretained}
+\acmConference[GECCO '18 Companion]{Genetic and Evolutionary Computation Conference Companion}{July 15--19, 2018}{Kyoto, Japan}
+\acmBooktitle{GECCO '18 Companion: Genetic and Evolutionary Computation Conference Companion, July 15--19, 2018, Kyoto, Japan}\acmDOI{10.1145/3205651.3205719}
+\acmISBN{978-1-4503-5764-7/18/07}
+
+
 
 \maketitle
 
