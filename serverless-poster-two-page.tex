@@ -7,34 +7,30 @@
 \usepackage{graphicx}
 \usepackage{rotating}
 
-
-
 \begin{document}
 \title{A modern, event-based architecture for distributed evolutionary algorithms}
 
-\author{Anonymous Author 1}
+\author{Juan-Juli\'an Merelo-Guerv\'os}
 \orcid{1234-5678-9012}
 \affiliation{%
-  \institution{Anonymous institute 1}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
+  \institution{Universidad de Granada}
+  \streetaddress{Daniel Saucedo Aranda, s/n}
+  \city{Granada}
+  \country{Spain}
 }
-\email{aa1@ai1.com}
+\email{jmerelo@ugr.es}
 
-\author{Anonymous Author 2}
+\author{Jos\'e-Mario Garc\'ia-Valdez}
 \affiliation{%
-  \institution{Anonymous institute 2}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
+  \institution{Instituto Tecnol\'ogico de Tijuana}
+  \streetaddress{Calzada Tecnol\'ogico, s/n}
+  \city{Tijuana}
+  \country{Mexico}
 }
-\email{2aa@ai2.com}
+\email{mario@tectijuana.edu.mx}
 
 % The default list of authors is too long for headers.
-\renewcommand{\shortauthors}{A. Author et al.}
+\renewcommand{\shortauthors}{JJ Merelo et al.}
 
 
 \begin{abstract}
@@ -77,13 +73,11 @@ algorithm to this new cloud-native format.
 \acmBooktitle{GECCO '18 Companion: Genetic and Evolutionary Computation Conference Companion, July 15--19, 2018, Kyoto, Japan}\acmDOI{10.1145/3205651.3205719}
 \acmISBN{978-1-4503-5764-7/18/07}
 
-
-
 \maketitle
 
 \section{Introduction}
 
-In general, Cloud based framworks have tried to achieve functional equivalence with parallel or sequential versions of EAs \cite{salza2017ccube,de2017parallel,10.1007/978-3-319-32149-3_46,de2015scalable}. Besides these implementations using well known cloud services, there are new computation models for evolutionary algorithms
+In general, Cloud based frameworks have tried to achieve functional equivalence with parallel or sequential versions of EAs \cite{salza2017ccube,de2017parallel,10.1007/978-3-319-32149-3_46,de2015scalable}. Besides these implementations using well known cloud services, there are new computation models for evolutionary algorithms
 that are not functionally equivalent to a canonical EA, but have
 proved to work well in these new environments. Pool based EAs,
 \cite{bollini1999distributed}, have been used for new
@@ -194,8 +188,7 @@ instances.
 
 This paper is intended to introduce a simple proof of concept of a
 serverless implementation of an evolutionary algorithm. The main
-problem with this algorithm, shared by many others, is to turn
-something that has state (in the form of loop variables or anything
+problem with this algorithm, shared by many others, is to turn an algorithm that has state (in the form of loop variables or anything
 else) into a stateless system. In this initial proof of concept we have
 opted to create a stateful {\em mixer} outside the serverless (and
 thus stateless) platform to be able to perform {\em
@@ -211,10 +204,10 @@ purpose.
 
 
 \begin{acks}
-
-  The author would like to acknowledge the support of grants\\
-  taking\\
-  this\\
+This paper has been supported in part by
+\href{http://geneura.wordpress.com}{GeNeura Team}, 
+projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and
+Competitiveness) and DeepBio (TIN2017-85727-C4-2-P).
 \end{acks}
 
 
